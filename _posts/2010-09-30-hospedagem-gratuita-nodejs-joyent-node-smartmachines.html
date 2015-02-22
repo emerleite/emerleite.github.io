@@ -1,0 +1,77 @@
+---
+layout: post
+title: Hospedagem gratuita NodeJS com Joyent Node Smartmachines
+date: 2010-09-30 00:04:30.000000000 -03:00
+categories:
+- nodejs
+tags:
+- hospedagem
+- javascript
+- joyent
+- js
+- node
+- nodejs
+status: publish
+type: post
+published: true
+meta:
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '2'
+  dsq_thread_id: '148954936'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Já faz algum tempo que a <a href="http://www.joyent.com/" target="_blank">Joyent</a> está investindo em  <a href="http://nodejs.org/" target="_blank">NodeJS</a> e pelo visto com força total. Passado 1 mês do <a href="http://nodeknockout.com/" target="_blank">Node Knockout</a>,  a <a href="http://www.joyent.com/" target="_blank">Joyent</a> está disponibilizando hospedagem beta para o <a href="http://nodejs.org/" target="_blank">NodeJS</a>. Essa liberação está acontecendo gradualmente e atualmente é necessário um token. Basicamente você solicita esse token e entra numa fila. Não demora muito e eles enviam um email pra você avisando que o token já está disponível. A partir daí basta recupera-lo e usar para criar sua instância.</p>
+<p>Uma coisa legal também é que a <a href="http://www.joyent.com/" target="_blank">Joyent</a> criou uma <a href="https://api.no.de/" target="_blank">API REST</a>, onde é possível fazer tudo pela linha de comando. Vamos criar e fazer deploy de uma aplicação simples.</p>
+<h2>Criando a conta:</h2>
+<pre>$ curl -k https://api.no.de/account \
+    -F "email=user@domain.com" \
+    -F "username=user" \
+    -F "password=pass" \
+    -F "password_confirmation=pass"</pre>
+<h2>Adicionando uma chave ssh:</h2>
+<pre> $ curl -k -u user:pass https://api.no.de/sshkeys \
+    -F "name=seunome" -F "key=@/Users/seuusuario/.ssh/id_rsa.pub"</pre>
+<h2>Solicitando um coupon para provisionar uma máquina:</h2>
+<pre>$ curl -k -u user:pass https://api.no.de/heart -X POST</pre>
+<p>A partir daí, você deve esperar o seu email chegar, avisando que o coupon está liberado. Como eu disse, essa liberação é gradual. Portanto, muita calma nessa hora. Talvez você tenha que voltar no artigo depois, portanto guarde o link :)</p>
+<h2>Provisionando sua máquina (quando o coupon estiver liberado):</h2>
+<h3>Pegue o coupon:</h3>
+<pre>$ curl -k -u user:pass https://api.no.de/coupons</pre>
+<p>Se você fizer essa busca antes do coupon estar liberado virá uma resposta vazia.</p>
+<h3>Provisione com o coupon recebido:</h3>
+<pre> $ curl -k -u user:pass https://api.no.de/smartmachines/node \
+    -F "coupon=123456789abcdefghijk" \
+    -F "subdomain="seusubdominio"</pre>
+<p>Nesse momento você já tem uma máquina apontando para o endereço: <strong>htttp://seusubdominio.no.de</strong></p>
+<h2>Primeiro deploy</h2>
+<p>O deploy para uma Node Smartmachine é feito via <a href="http://git-scm.com/" target="_blank">git</a>, assim como no <a href="http://heroku.com/" target="_blank">heroku</a>. Sendo assim, vamos criar um projeto simples, com um hello world e fazer o deploy:</p>
+<pre>$ mkdir seuprojeto &amp;&amp; cd seuprojeto</pre>
+<p>Crie um arquivo chamado <strong>server.j</strong>s no editor de sua preferência e adicione o seguinte código:</p>
+<pre>
+var http = require('http');
+
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end('Hello NodeJS Smartmachine\n');
+});
+
+server.listen(Number(process.env.PORT));</pre>
+<p>Pegue as informações (IP) da sua máquina para configurar o repositório remoto do git:</p>
+<pre>$ curl -k -u user:pass https://api.no.de/smartmachines/node</pre>
+<p>Inicialize o repositório git, faça o primeiro commit e adicione o repositório remoto:</p>
+<pre>git init
+git add .
+git commit -am "Primeiro commit"
+git remote add joyent ssh://node@<strong>seuip</strong>/repo</pre>
+<p>Agora vamos ao que mais interessa. Deploy !!!!</p>
+<pre>git push joyent master</pre>
+<p>Pronto!!! Agora acesse <strong>htttp://seusubdominio.no.de</strong> e você deve ver a mensagem Hello NodeJS Smartmachine.</p>
+<h2>Gerênciando pela interface web</h2>
+<p>Para gerenciar sua conta visualmente basta entrar em <a href="http://no.de" target="_blank">http://no.de</a> e entrar com seu usuário e senha. É uma ótima opção também. Nesse site também é possível criar novas contas, adicionar chaves ssh e provisionar máquinas. Não é possível</p>
+<h2>Conclusão</h2>
+<p>Essa hospedagem de NodeJS me parece bem promissora, e eu sinceramente estou gostando muito. A hospedagem permite instalar pacotes usando NPM e também instalar algumas outras coisas. No próximo artigo vou explorar detalhes de administração dessa hospedagem.</p>

@@ -1,0 +1,27 @@
+---
+layout: post
+title: Entendendo a numeração de versões do Node.JS
+date: 2011-04-20 11:56:00.000000000 -03:00
+categories:
+- nodejs
+tags:
+- configuration
+- nodejs
+- versionamento
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '284333114'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Após um tempo usando o <a href="http://nodejs.org/">Node.JS</a>, talvez você se pergunte quais versões usar em produção, e/ou sob quais versões você deve basear uma biblioteca que está desenvolvendo. O controle de releases do <a href="http://nodejs.org/">Node.JS</a> é baseado no clássico estilo de versionamento x.y.z, onde x é o major release, y é o minor release e o z é um patch. Se você não sabe muito bem o que é isso, o site sobre <a href="http://semver.org/">Semantic Versioning</a> cobre esse assunto, e vai um pouco mais além.</p>
+<p>Historicamente, alguns projetos costumam usar a versão par como stable e a versão ímpar como unstable. O próprio kernel do linux já foi assim. Esse não é o princípio do <a href="http://semver.org/">Semantic Versioning</a> e muita gente considera errado, mas isso não está em discussão aqui. Meu objetivo é apenas explicar como você deve manter atualizado seu runtime do <a href="http://nodejs.org/">Node.JS</a>.</p>
+<p>O <a href="http://nodejs.org/">Node.JS</a> também se baseia nessa divisão entre par e ímpar. A versão atual é a <a href="http://nodejs.org/docs/v0.4.6/api/">0.4.6</a> e é a que deve ser utilizada em todos os casos, seja para experimentos, seja para produção. O target atual é a versão 0.6.0, e assim como aconteceu com a versão 0.4.0, as versões intermediárias 0.5.x (unstable) serão usadas para fazer as experiências do que irá entrar nas versões 0.6.x.</p>
+<p>Sendo prático, a forma mais indicada de lidar com isso é usar sempre as versões pares para desenvolver suas bibliotecas e colocar aplicações em produção e sempre que possível ter uma branch para testar essas bibliotecas e aplicações nas versões ímpares posteriores, evitando assim acumular muita coisa para a versão par seguinte.</p>

@@ -1,0 +1,67 @@
+---
+layout: post
+title: Usando o novo built-in debugger do Node.js
+date: 2011-02-12 11:39:50.000000000 -02:00
+categories:
+- Sem categoria
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '228824655'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Para debugar aplicações <a href="http://nodejs.org">Node.js</a>, eu estava usando até o momento o <a href="https://github.com/smtlaissezfaire/ndb">Node Debugger (a.k.a ndb)</a>, uma biblioteca que deve ser instalada a parte (geralmente via <a href="https://github.com/isaacs/npm#readme">npm</a>) e que apesar de não ser nada de outro mundo, tem me ajudando bastante. Existem também outras boas opcões, como o <a href="https://github.com/dannycoates/node-inspector">Node Inspector</a>, <a href="https://github.com/ry/node/wiki/Using-Eclipse-as-Node-Applications-Debugger">Node Eclipse Debugger</a>, entre outros. Todas elas como pacotes em separado.</p>
+<p>Desde a <a href="https://github.com/ry/node/blob/v0.3.4/ChangeLog">versão 0.3.4 do Node.js, existe um built-in debugger</a>, que provavelmente se tornará a opção default, e provavelmente o plugins de IDEs como o do <a href="http://www.eclipse.org/">Eclipse</a> passará a usa-lo para debugar aplicacões <a href="http://nodejs.org">Node.js</a> (suposição minha).</p>
+<p>Sua forma de utilização básica é praticamente a mesma que já estamos acostumados com ferramentas de debug command-line. Basta inserir uma linha no meio do código com a keyword debugger e o programa vai parar naquela linha para você verificar o que está acontecendo. Um breve exemplo:</p>
+<p>[sourcecode language="javascript"]<br />
+function fazNada(msg) {<br />
+  debugger;<br />
+  console.log(msg);<br />
+}<br />
+fazNada(&quot;teste&quot;);<br />
+[/sourcecode]</p>
+<p>Agora basta rodar o node com a opção debug:</p>
+<pre>$ node debug qualquercoisa.js</pre>
+<p>Digite run (acho que esse passo não precisaria existir, mas):</p>
+<pre>debug&gt; run</pre>
+<p>O segunte output deveria aparecer:</p>
+<pre>// informações sobre o programa e o primeiro break point
+debugger;
+^</pre>
+<p>Dê um list para vermos onde estamos no programa:</p>
+<pre>debug&gt; list
+ 1 function fazNada(msg) {
+=&gt;   debugger;
+ 3   console.log(msg);
+ 4 }
+ 5 fazNada("teste");
+ 6</pre>
+<p>Imprima o valor de msg:</p>
+<pre>debug&gt; print msg
+teste</pre>
+<p>Passe para próxima linha:</p>
+<pre>debug&gt; next
+break in fazNada(msg=teste), /Users/emerson.leite/lixo/xptoDebug.js:3
+  console.log(msg);
+  ^</pre>
+<p>Continue o script para ele executar o restante e encerrar:</p>
+<pre>debug&gt; continue
+debug&gt; teste
+
+program terminated</pre>
+<p>Se você quiser repetir o ciclo basta executar run novamente.</p>
+<p>Para ver os demais comandos, basta digitar help no console do debug:</p>
+<pre>debug&gt; help
+Commands: backtrace, continue, help, info breakpoints, kill,
+list, next, print, quit, run, scripts, step, version</pre>
+<p>Por enquanto pretendo vou continuar usando em conjunto com o <a href="https://github.com/smtlaissezfaire/ndb">ndb</a>, principalmente porque esse debug built-in ainda não tem um <strong>eval</strong>, ou seja, não consigo alterar nada durante o debug, o que me limita muito na hora de resolver problemas.</p>
+<p>Fiquemos atentos as novidades.</p>

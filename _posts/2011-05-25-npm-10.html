@@ -1,0 +1,151 @@
+---
+layout: post
+title: Conhecendo o NPM 1.0
+date: 2011-05-25 22:49:10.000000000 -03:00
+categories:
+- nodejs
+tags:
+- nodejs
+- npm
+- tutorial
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '313956086'
+  _wp_old_slug: conhecendo-npm-10
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>No dia primeiro deste mês, foi lançado a versão 1.0 do <a href="https://github.com/isaacs/npm" target="_blank">NPM (Node Package Manager)</a>. Pra quem não sabe, o <a href="https://github.com/isaacs/npm" target="_blank">NPM</a> é o gerenciador de pacotes oficial do <a href="http://nodejs.org/" target="_blank">Node.JS</a>. É com ele que criamos e baixamos bibliotecas para desenvolver nossas aplicações em <a href="http://nodejs.org/" target="_blank">Node.JS</a>.</p>
+<p>Não vou explicar aqui como funcionava até a versão 0.3.18 (a última antes das pré 1.0) para não ficar um artigo grande (já vai ficar), mas a explicação sobre o funcionamento da versão 1.0 deve ser suficiente para você conseguir migrar.</p>
+<h2>Instalando</h2>
+<p>Existem algumas instruções de instalação, mas basicamente a melhor forma é instalar limpando as coisas velhas. Digo isso porque agora que chegou na 1.0 e quase todas as libs já atualizaram para essa versão e novo modelo, não faz sentido manter libs, a não ser que você tenha alguma lib muito específica. Execute o seguinte:</p>
+<pre>$ curl http://npmjs.org/install.sh | clean=yes sh</pre>
+<p>Certifique que você tem permissão para escrever no diretório <strong>/usr/local</strong>.</p>
+<p>Isso vai instalar o NPM 1.0.6 (versão do momento que escrevo o artigo) e limpar suas libs antigas). Se preferir, desinstale antes seu NPM antigo (npm uninstall npm) e apague o diretório ~/.npm. Novidades da instalação:</p>
+<pre>/usr/local/bin/npm #executável
+/usr/local/lib/node_modules/ #pacotes globais</pre>
+<p>Desde a versão 0.4.x do Node.JS, o diretório <strong>node_modules</strong> passa a ser o <a href="http://nodejs.org/docs/v0.4.8/api/modules.html#loading_from_node_modules_Folders" target="_blank">diretório de armazenamento de pacotes, sempre contextualmente ao diretório do projeto que você está trabalhando</a>. Tanto isso é verdade que as bibliotecas instaladas em <strong>/usr/local/lib/node_modules/</strong> não ficam automaticamente visíveis para você dar <strong>require</strong> nelas. Falarei mais sobre isso adiante.</p>
+<p>Sendo assim, a nova forma de trabalhar com o NPM é a seguinte:</p>
+<ul>
+<li>Pacotes que contém executáveis (nodeunit, express, etc) instale com <strong>npm install pacote -g</strong></li>
+<li>Pacotes sem executáveis instale com <strong>npm install pacote</strong></li>
+</ul>
+<h3>Qual a diferença?</h3>
+<p>A diferença é que a instalação utilizando -g deve ser utilizada primariamente para pacotes que contém executáveis, pois os executáveis já ficam visíveis no path. Outro uso é quando você quer compartilhar algum pacote com diversos projetos. Isso é feito criando um link, que falaei adiante. A instalação local limita o pacote ao escopo do projeto/diretório que foi instalado, ou seja, somente dentro desse diretório e seus subdiretórios esse pacote estará disponível para <strong>require</strong>.</p>
+<p>Para listar os pacotes instalados localmente, basta executar o seguinte comando:</p>
+<pre>$ npm list
+database-cleaner@0.3.2 /Users/emerson.leite/Pet/node-database-cleaner
+├─┬ cradle@0.5.5
+│ ├── vargs@0.1.0
+│ └─┬ vows@0.5.8
+│   └── eyes@0.1.6
+├── mongoose@1.0.10
+├── nodeunit@0.5.1
+└── redis@0.6.0</pre>
+<p>Esse comando lista apenas os pacotes instalados no diretório <strong>node_modules</strong> dentro do diretório que aparece logo abaixo do comando <strong>npm list</strong> (ou <strong>npm ls</strong>)</p>
+<p>Para listar os pacotes globais basta executar:</p>
+<pre>$ npm ls -g
+/usr/local/lib
+├─┬ connect@1.4.1
+│ ├── mime@1.2.2
+│ └── qs@0.1.0
+├── nodeunit@0.5.1
+└─┬ npm@1.0.6
+  ├── abbrev@1.0.3
+  ├── node-uuid@1.1.0
+  ├── nopt@1.0.4
+  └── semver@1.0.5</pre>
+<p>Repare que a lista é bem diferente. Nenhum desses pacotes podem ser utilizados sem que sejam linkados. Vamos fazer isso agora para que eles fiquem disponíveis localmente.</p>
+<pre>$ npm link connect
+./node_modules/connect -&gt; /usr/local/lib/node_modules/connect</pre>
+<p>E agora veremos novamente nossos pacotes locais:</p>
+<pre>$ npm ls
+database-cleaner@0.3.2 /Users/emerson.leite/Pet/node-database-cleaner
+├─┬ connect@1.4.1 -&gt; /usr/local/lib/node_modules/connect extraneous
+│ ├── mime@1.2.2
+│ └── qs@0.1.0
+├─┬ cradle@0.5.5
+│ ├── vargs@0.1.0
+│ └─┬ vows@0.5.8
+│   └── eyes@0.1.6
+├── mongoose@1.0.10
+├── nodeunit@0.5.1
+└── redis@0.6.0</pre>
+<p>Repare que o pacote connect aponta para um diretório na instalação global. Com esse link, é possível utilizar o pacote no projeto/diretório atual.</p>
+<p>Alguns desenvolvedores utilizam a variável de ambiente NODE_PATH apontando para /usr/local/lib/node_modules/ porque seus projetos não estão enxergando os pacotes globais. De fato isso funciona, mas não é a maneira adequada, pois se você instalar um pacote local e outro global utilizando essa configuração, o pacote global vai prevalecer sobre o local, o que não deveria ser o comportamento esperado.</p>
+<p>É importante entender que o escopo local é definido tão somente pelo diretório que você está. Se você voltar um diretório e listar novamente os pacotes perceberá que não tem nada instalado ou a lista de pacotes instalados é diferente (no caso de você ter instalado algo nesse diretório). Vejamos:</p>
+<pre>$ cd ..
+$ npm ls
+/Users/emerson.leite/Pet
+(empty)</pre>
+<p>Voltemos para o diretório anterior e vamos remover o link ao pacote connect.</p>
+<pre>$ cd -
+/Users/emerson.leite/Pet/node-database-cleaner
+$ npm unlink connect
+$ npm ls
+database-cleaner@0.3.2 /Users/emerson.leite/Pet/node-database-cleaner
+├─┬ cradle@0.5.5
+│ ├── vargs@0.1.0
+│ └─┬ vows@0.5.8
+│   └── eyes@0.1.6
+├── mongoose@1.0.10
+├── nodeunit@0.5.1
+└── redis@0.6.0</pre>
+<p>Nesse momento não temos mais o link para o pacote connect e portanto não podemos mais fazer um <strong>require</strong> dele.</p>
+<h2>Utilizando o <strong>package.json</strong> para gerenciar suas dependências</h2>
+<p>O arquivo package.json é um arquivo que descreve um pacote NPM. Nesse arquivo também pode/deve ser utilizado para especificar os pacotes que seu projeto depende. Dessa forma, basta estar no diretório e executar <strong>npm install</strong> que o NPM já instalará as dependências necessárias. Vejamos um exemplo:</p>
+<pre>{
+  "name" : "database-cleaner",
+  "description" : "Database Cleaner for node.js",
+  "keywords" : [ "database", "cleaner", "mongodb",
+                 "redis", "couchdb", "tests", "package.json" ],
+  "version" : "0.3.2",
+  "author" : "Emerson Macedo ",
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/emerleite/node-database-cleaner.git"
+  },
+  "dependencies" : {
+    "mongoose" : "1.0.10",
+    "redis" : "&gt;=0.5.7",
+    "cradle" : "&gt;=0.5.x"
+  },
+  "main": "index",
+  "engines" : { "node" : "&gt;=0.2.5" }
+}</pre>
+<p>Vamos limpar o diretório e instalar novamente as dependências para ver como funciona. Primeiro vou apagar o diretório node_modules, listar para mostrar que está vazio e instalar as dependências.</p>
+<pre>$ rm -fr node_modules/
+$ npm ls
+npm WARN cradle &gt;=0.5.x Unmet dependency in /Users/emerson.leite/Pet/node-database-cleaner
+npm WARN mongoose 1.0.10 Unmet dependency in /Users/emerson.leite/Pet/node-database-cleaner
+npm WARN redis &gt;=0.5.7 Unmet dependency in /Users/emerson.leite/Pet/node-database-cleaner
+database-cleaner@0.3.2 /Users/emerson.leite/Pet/node-database-cleaner
+├── UNMET DEPENDENCY cradle &gt;=0.5.x
+├── UNMET DEPENDENCY mongoose 1.0.10
+└── UNMET DEPENDENCY redis &gt;=0.5.7</pre>
+<p>A resposta mostra que as dependências não estão instaladas, o que vamos resolver agora:</p>
+<pre>$ npm install
+redis@0.6.0 ./node_modules/redis
+mongoose@1.0.10 ./node_modules/mongoose
+vargs@0.1.0 ./node_modules/cradle/node_modules/vargs
+eyes@0.1.6 ./node_modules/cradle/node_modules/vows/node_modules/eyes
+vows@0.5.8 ./node_modules/cradle/node_modules/vows
+cradle@0.5.5 ./node_modules/cradle</pre>
+<p>Agora vamos listar apenas para conferir.</p>
+<pre>$ npm ls
+database-cleaner@0.3.2 /Users/emerson.leite/Pet/node-database-cleaner
+├─┬ cradle@0.5.5
+│ ├── vargs@0.1.0
+│ └─┬ vows@0.5.8
+│   └── eyes@0.1.6
+├── mongoose@1.0.10
+└── redis@0.6.0</pre>
+<h2>Pra fechar</h2>
+<p>O NPM  tem uma série de outros recursos que vou tentar destacar em outros artigos, mas vejo que muita gente não estava entendendo bem a forma mais adequada de usar a versão 1.0, inclusive apelando para o uso inadequado da variável de ambiente NODE_PATH. Espero que este artigo possa ajudar a explicar um pouco do NPM 1.0.</p>

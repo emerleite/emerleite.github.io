@@ -1,0 +1,54 @@
+---
+layout: post
+title: Os desafios do Novo Player de Vídeos da Globo.com
+date: 2010-12-07 23:14:44.000000000 -02:00
+categories:
+- agile
+- engenharia
+- gestão
+- infra
+- lean
+- pensamentos
+- testes
+- xp
+tags:
+- agile
+- pensamentos
+- testes
+- xp
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '186730657'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Faz aproximadamente 4 meses que mudei para a equipe de <a href="http://video.globo.com/">Webmedia</a> da <a href="http://globo.com">globo.com</a>. Nessa ida, eu esperava alguns desafios um pouco diferentes, o que acabou acontecendo logo no começo.</p>
+<p><a href="http://codificando.com/wp-content/uploads/2010/12/player_globo.jpg"><img class="size-full wp-image-701" title="Novo Player Globo.com" src="assets/player_globo.jpg" alt="Novo Player Globo.com" width="638" height="359" /></a></p>
+<p>Indo direto ao ponto, meu primeiro projeto importante foi desenvolver junto com meu time um novo player de vídeos para a <a href="http://globo.com">globo.com</a>, o qual chamamos de Player 2.0. Pra mim isso era algo totalmente novo, pois <a href="http://codificando.com/2009/02/bbb9-e-o-brother-que-voce-nao-gosta-no-ar/" target="_blank">meu contato com desenvolvimento Flash/ActionScript havia sido muito pouco, num projeto no início de 2009</a>. Como a maioria já sabe, o desenvolvimento de um Player de Vídeos hoje em dia precisa necessariamente ser feito em flash, pois é o runtime que tem o maior alcance de usuários. A parte de vídeos do <a href="http://www.w3.org/TR/html5/">html5</a> ainda tem diversas lacunas a serem preenchidas e é necessário ainda um bom tempo para que a "massa" de usuários tenham seus browsers atualizados com suporte a essa tecnologia.</p>
+<p>Nesse desenvolvimento do Player, pude perceber juntamente com meu time que desenvolver na <a href="http://www.adobe.com/flashplatform/">plataforma do Flash</a> já é o um grande desafio, pois a plataforma e o runtime tem alguns detalhes que você precisa entender e saber lidar, caso contrário você vai ter muita dor de cabeça.</p>
+<h2>Runtime e Sistema Operacional</h2>
+<p>Quando você desenvolve alguma coisa em Flash, especialmente um Player de Vídeos, um ponto onde é preciso tomar bastante cuidade é com o <a href="http://en.wikipedia.org/wiki/Adobe_Flash_Player">Runtime do Flash (vulgo Flash Player)</a>. O Runtime pode ter comportamentos diferentes em diferentes versões do próprio runtime e também do sistema operacional. Por algumas vezes nós passamos por situações onde percebemos que o Player não estava funcionando em uma versão específica do Runtime no Internet Explorer 6 no Windows XP. Isso causou uma certa correria, mas felizmente conseguimos resolver o problema antes de colocar no ar e não houve impacto.</p>
+<p>Lições aprendidas e tivemos tomar algumas medidas, entre elas testar em Linux, Windows e Mac e nos principais browsers e Runtimes do Flash como parte do nosso Definition of Done (DoD). Na prática, hoje uma estória não é dada como pronta se não tivermos certeza que o que foi feito funciona nos diversos environments pré estabelecidos. No início isso era parte do DoD do Sprint, mas após passarmos por uma situação, onde achamos um problema no IE6 (pra variar) bem no último dia do sprint, e que iria colocar todo esse Sprint por água abaixo, movemos esse item do DoD do Sprint para o DoD das estórias. Acabamos resolvendo o problema sem impactar no sprint, mas o desfecho poderia ter sido outro.</p>
+<h2>Testes Automatizados</h2>
+<p>Nos tempos atuais, é quase unânime a importância de testes automatizados no desenvolvimento de software. Todo programador deveria saber os princípios de testes automatizados e aplicá-los no seu dia a dia. Infelizmente, existem alguns environments que não facilitam muito esse tipo de prática. Nesses casos, é necessário lidar com o problema de maneira pragmática, caso contrário as coisas não andam. Diferentemente de outras tecnologias, neste caso não podemos escolher alguma opção diferente, pois a opção é uma só (o Flash).</p>
+<p>No desenvolvimento do Player, nós usamos o <a href="http://flexunit.org/">FlexUnit</a> como ferramenta principal de testes automatizados. Dentro do que ele se propõe, faz seu trabalho bem feito, e facilita bastante os testes. Tem suporte a <a href="http://docs.flexunit.org/index.php?title=Writing_an_AsyncTest">testes assíncronos</a>, e sua <a href="http://docs.flexunit.org/">documentação explica bem as principais funcionalidades</a>.</p>
+<p>Uma coisa que tem nos atrapalhado bastante são os frameworks de <a href="http://xunitpatterns.com/Test%20Double.html">test doubles</a>. Nenhum dos frameworks que testamos funcionou no nosso ambiente. Aqui, algo que percebemos no densenvolvimento para Flash foi que cada tutorial na internet pode funcionar numa minor/revision version do runtime e na outra aquele tutorial já não funciona. É bem complicado e custei a aceitar, mas é assim que funciona nesse environment. Ainda não descarto a possibilidade de que poderiamos insistir mais pra conseguir alguma coisa melhor, ou que não soubemos fazer direito, mas não poderiamos ficar empacados nisso, sem mover nosso projeto pra frente.</p>
+<p>Mesmo com essas dificuldades, estamos conseguindo fazer uma quantidade boa de testes e isso tem nos ajudado muito.</p>
+<h2>Continous Integration Server</h2>
+<p>Outro desafio bem complicado que tivemos foi ter um build server funcionando bem e rodando nossos testes automatizados. Mais uma vez os tutoriais da internet acabam não funcioando direito. Pra piorar, pra você rodar testes ActionScript 3, que é a linguagem do Flash, é necessário levantar uma instância do FlashPlayer, que precisa de um <a href="http://en.wikipedia.org/wiki/X_Window_System">Servidor X</a>. Essa instância vezes não fecha, fica travada, ou apresenta alguns problemas que nada tem a ver com os testes da aplicação. Custamos a perceber isso, mas foi o que aconteceu.</p>
+<p>No fim das contas, hoje temos nosso servidor de build e integração contínua funcionando bem, e com poucos problemas.</p>
+<h2>Estratégia de Migração</h2>
+<p>Fazer uma mudança no Player de Vídeos da <a href="http://globo.com">globo.com</a> não é uma tarefa simples. Não poderíamos simplesmente colocar um Player novo no lugar do antigo e ver o que aconteceria. Além de ser um baita risco seria uma baita irresponsabilidade. Precisavamos então pensar numa estratégia ...</p>
+<p>Antes  do momento de colocar o primeiro release no ar, decidimos usar um catálogo de vídeos com acesso bem pequeno. Para isso, criamos uma opção que ativa/desativa a versão nova em cada catálogo, individualmente. Dessa forma, poderiamos voltar para a versão antiga IMEDIATAMENTE, em caso de algum problema.</p>
+<p>Essa estratégia foi perfeita, pois conseguimos pegar diversos pontos de melhoria, e fazer os ajustes necesários sem gerar impacto para os usuários. Com os ajustes feitos e uma nova versão no ar, resolvemos então <a href="http://ascariocas.globo.com/videos/" target="_blank">colocar em mais um catálogo de vídeos</a>, dessa vez um com mais acessos. Nesse momento nosso player ainda não suportava vídeos ao vivo, portanto ainda não podiamos colocar em catálogos como o do <a href="http://globonews.globo.com/videos/v/globo-news-ao-vivo/61910" target="_blank">Globo News</a>, pois caso contrário teriamos problemas. Isso provou como a nossa escolha de criar uma opcão de ir habilitando sob demanda se mostrou bastante acertada, pois assim que terminamos a funcionalidade de vídeos ao vivo, habilitamos essa nova versão do Player para o <a href="http://globonews.globo.com/videos/v/globo-news-ao-vivo/61910" target="_blank">Globo News</a>.</p>
+<p>Hoje, estamos já com quase todos os catálogos de vídeos usando esse Novo Player. Em breve, todos os vídeos da Globo.com serão servidos por ele. Isso só não aconteceu ainda porque temos algumas estórias com alguns detalhes que tornam viável a substituição completa do Player que está no ar hoje. O mais interessante de tudo é que estamos tendo impacto e stress zero, graças e estratégia bem traçada por todo nosso time.</p>
+<h2>Conclusão</h2>
+<p>Esse começo na equipe de Webmedia está sendo ótimo. Criar um Player de Vídeos do zero tem sido uma experiência fantástica, apesar de todas as dificuldades.</p>
+<p>Algumas das coisas mais importantes que estou tirando de lição desse projeto é que (1) nem sempre dá pra fazer tudo certinho com todos os testes automatizados, etc, etc etc, (2) as vezes estamos num vendor lock-in onde não dá pra sair e ai você tem que saber superar com os problemas do enviroment dessa tecnologia e (3) migrar uma aplicação que afeta quase todos os sites de uma empresa do tamanho da <a href="http://globo.com">globo.com</a> sem causar impacto em ninguém é difícil, mas não impossível.</p>

@@ -1,0 +1,117 @@
+---
+layout: post
+title: Law of Demeter simples em Ruby com a gem demeter
+date: 2009-11-26 01:17:07.000000000 -02:00
+categories:
+- ruby
+tags:
+- code
+- demeter
+- design
+- dry
+- lawofdemeter
+- rails
+- ruby
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '83665039'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Depois de programar algum tempo em Ruby, me senti muito incomodado em ter que repetir um determinado código para manter minha estrutura respeitando a <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>. Pra quem não está familiarizado, segue um simples exemplo em Rails:</p>
+<p>[sourcecode language="ruby"]<br />
+#models<br />
+class Post &lt; ActiveRecord::Base<br />
+  has_many :comments<br />
+end</p>
+<p>class Comment &lt; ActiveRecord::Base<br />
+  belongs_to :post<br />
+end</p>
+<p>#view - erb|haml<br />
+@comment.post.title<br />
+@comment.post.name<br />
+@comment.post.something_else<br />
+[/sourcecode]</p>
+<p>O exemplo é um pouco forçado, mas o problema claro do exemplo é que estamos conhecendo demais sobre o objeto <strong>post</strong> dentro de <strong>comment</strong>. Se for necessário alguma alteração em algum dos atributos que estamos acessando diretamente, possivelmente isso resultará em modificações em cascata em todo código.</p>
+<p>Depois dessa explicação básica para quem ainda não conhecia a <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>, vamos aplicar algumas soluções:</p>
+<p>Segunda tentativa:<br />
+[sourcecode language="ruby"]<br />
+#models<br />
+class Post &lt; ActiveRecord::Base<br />
+  has_many :comments<br />
+end</p>
+<p>class Comment &lt; ActiveRecord::Base<br />
+  belongs_to :post<br />
+  def post_title<br />
+    post ? post.title : nil #preciso verificar se é nulo, caso contrário terei problemas<br />
+  end<br />
+  def post_name<br />
+    post ? post.name : nil #preciso verificar se é nulo, caso contrário terei problemas<br />
+  end<br />
+  def post_something_else<br />
+    post ? post.something_else : nil #preciso verificar se é nulo, caso contrário terei problemas<br />
+  end<br />
+end</p>
+<p>#view - erb|haml<br />
+@comment.post_title<br />
+@comment.post_name<br />
+@comment.post_something_else<br />
+[/sourcecode]</p>
+<p>Essa mudança resolve o problema. Acontece que isso acaba sendo um pattern para resolver o problema, portanto, precisamos encontrar uma forma de não ficar repetindo esse código.</p>
+<p>Quem já leu o livro <a href="http://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X">The Pragmatic Programmer</a>, tem bem na memória o capítulo que apresenta o conceito <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY - D'ont Repeat Yourself</a>. Quem programa em Ruby e principalmente já usou o framework Rails sabe bem que <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> é um dos chavões que estão imbutidos na propaganda. Vamos então tentar fazer mais algumas modificações pra tentar alcançar esse objetivo:</p>
+<p>Terceira tentativa:<br />
+[sourcecode language="ruby"]<br />
+#models<br />
+class Post &lt; ActiveRecord::Base<br />
+  has_many :comments<br />
+end</p>
+<p>require 'forwardable'<br />
+class Comment &lt; ActiveRecord::Base<br />
+  extend Forwardable<br />
+  belongs_to :post<br />
+  def_delegator :post, :name, :post_name<br />
+  def_delegator :post, :title, :post_title<br />
+  def_delegator :post, :something_else, :post_something_else<br />
+end</p>
+<p>#view - erb|haml<br />
+@comment.post_title<br />
+@comment.post_name<br />
+@comment.post_something_else<br />
+[/sourcecode]<br />
+O módulo <a href="http://www.ruby-doc.org/stdlib/libdoc/forwardable/rdoc/index.html">Forwardable</a> já vem com o Ruby. Portanto, a solução mais obvia foi usar esse módulo para melhorar o exemplo anterior. Apesar de escrever menos código, essa alternativa tem o inconveniente de não verificar se o objeto <strong>post</strong> é <strong>nil</strong>, causando assim <strong>NoMethodError</strong> em alguns casos. Sendo assim, a alternativa anterior ainda parece ser mais adequada. Porém, a duplicação de código ainda me incomodava bastante, portanto, resolvi montar uma solução única que deu origem a <a href="http://github.com/emerleite/demeter"><strong>gem demeter</strong></a>.</p>
+<p>A solução definitiva:<br />
+[sourcecode language="ruby"]<br />
+#no shell<br />
+&gt; sudo gem update --system<br />
+&gt; sudo gem sources -a http://gemcutter.org<br />
+&gt; sudo gem install demeter</p>
+<p>#models<br />
+class Post &lt; ActiveRecord::Base<br />
+  has_many :comments<br />
+end</p>
+<p>class Comment &lt; ActiveRecord::Base<br />
+  extend Demeter     #extends demeter module<br />
+  demeter :post      #demeter post object<br />
+  belongs_to :post<br />
+end</p>
+<p>#view<br />
+@comment.post_title<br />
+@comment.post_name<br />
+@comment.post_something_else<br />
+[/sourcecode]<br />
+Basicamente o problema foi resolvido com 2 linhas de código:<br />
+[sourcecode language="ruby"]<br />
+  extend Demeter<br />
+  demeter :post<br />
+[/sourcecode]<br />
+A vantagens são visíveis porque (1) você escreve bem menos, (2) já existe a verificação de objetos nulos e (3) caso você queira sobrescrever o comportamento padrão, basta criar um método que responda a mesma mensagem que a <a href="http://github.com/emerleite/demeter"><strong>gem demeter</strong></a> responde. Dessa forma, o método criado pelo programador semrpe terá prioridade.</p>
+<p>O código fonte do projeto está em <a href="http://github.com/emerleite/demeter">http://github.com/emerleite/demeter</a> com todas as instruções para utilização tanto em Ruby quanto em Ruby on Rails. O código fonte tem todos os testes automatizados que cobrem diversos cenários. O resultado desses testes podem ser vistos em <a href="http://runcoderun.com/emerleite/demeter">http://runcoderun.com/emerleite/demeter</a>. A página da gem fica em <a href="http://gemcutter.org/gems/demeter">http://gemcutter.org/gems/demeter</a></p>
+<p>Aguardo o feedback de vocês :)</p>

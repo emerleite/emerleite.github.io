@@ -1,0 +1,68 @@
+---
+layout: post
+title: RVM com Passenger e múltiplas instâncias HTTPD
+date: 2010-07-19 16:31:29.000000000 -03:00
+categories:
+- infra
+- rails
+- ruby
+- tools
+tags:
+- deploy
+- infra
+- passenger
+- rails
+- ruby
+- rvm
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '119791667'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>No <a href="http://codificando.com/2010/07/gerencie-ambiente-ruby-rvm/">artigo anterior</a>, falei sobre sobre <a href="http://rvm.beginrescueend.com/" target="_blank">RVM (Ruby Version Manager)</a>, explicando sobre instalação, configuração e seu funcionamento interno. Porém, não mencionei nada sobre seu uso com o <a href="http://www.modrails.com/" target="_blank">Phusion Passenger (A.K.A mod_rails, mod_rack)</a>, e algumas pessoas me perguntaram sobre isso. Eu não abordei essa parte no artigo anterior por duas razões: A primeira é porque já era madrugada e o sono já me dominava :) e a segunda porque o artigo iria ficar muito grande e o conteúdo inicial já era suficiente para montar um ambiente local na máquina do desenvolvedor.</p>
+<p>Esse artigo basea-se no uso do <a href="http://httpd.apache.org/" target="_blank">Apache 2.x</a> e no <a href="http://www.apple.com/macosx/" target="_blank">Sistema Operacional OSX</a>. Porém, as configurações em SOs <a href="http://en.wikipedia.org/wiki/POSIX" target="_blank">POSIX</a> se assemelham, portanto usuários do <a href="http://www.ubuntu.com/" target="_blank">Ubuntu</a> e afins não deverão ter nenhum problema.</p>
+<h3><strong>Instalando o Passenger em uma Rubie/Gemset</strong></h3>
+<p>Se você já usa RVM ou seguiu os passos do <a href="http://codificando.com/2010/07/gerencie-ambiente-ruby-rvm/">artigo anterior</a>, já deve ter tudo instalado e configurado e já possui uma Rubie com ou sem Gemsets (não faz diferença ter Gemsets para esse artigo). Caso contrário, leia novamente.</p>
+<p>Abra o terminal e entre na sua Rubie/Gemset, instale a gem do passenger e o módulo do apache (ou nginx):</p>
+<p><strong>$ rvm use rubie@gemset </strong><strong><span style="font-weight: normal;">#ex: rvm use 1.8.7@minhaapp</span><br />
+$ gem install passenger<br />
+$ rvmsudo passenger-install-apache2-module</strong></p>
+<p>Muita atenção nesse momento. A instalação do módulo do apache (ou nginx) deve ser feita usando rvmsudo. Sem isso não funcionou comigo e acho que com ninguém vai funcionar :)</p>
+<p>Feito isso, no fim da instalação do módulo ele vai mandar você colocar aquelas 3 linhas de configuração do Passenger nas suas configs do apache. Eu sugiro criar um arquivo <strong>passenger.conf</strong> ou similar e colar esse código dentro desse arquivo, pra não misturar com as configs básicas do Servidor Http. Se você estiver usando Mac, as configurações do apache provavelmente estarão em <strong>/etc/apache2</strong> e existe um diretório <strong>other</strong>, onde colocamos as configurações adicionais, como esta que acabamos de criar para o passenger.</p>
+<p>Agora precisamos ajustar um detalhe nessas configurações do Passenger. Quando instalamos o Passenger e módulo do apache em uma RVM, a terceira linha da configuração (PassengerRuby) que a instalação sugere, não aponta para o diretório correto, e não funciona. É necessário fazer uma modificação e vou explicar.</p>
+<p>Quando instalamos a RMV, ele cria um diretório chamado <strong>~/.rvm/bin</strong>, onde ficam todos os executáveis das rubies (ruby, irb, gem, ri, rdoc). A instalação do Passenger não entende isso e aponta para uma estrutura diferente, formada da seguinte maneira: <strong>~/.rvm/rubies/{Rubie}/bin/ruby</strong>, e isso não funciona. Portanto, precisamos alterar essa linha para que fique da segunte forma:</p>
+<p><strong>$ PassengerRuby ~/.rvm/bin/{Rubie}@{Gemset}</strong></p>
+<p>A documentação sugere uma forma diferente dessa, nos indicando executar <strong>rvm {Rubie@Gemset} --passenger</strong> e substituir essa terceira linha da segunte forma:</p>
+<p><strong>$ PassengerRuby ~/.rvm/bin/passenger_ruby</strong></p>
+<p>O que isso faz é criar um link symbólico de <strong>passenger_ruby</strong> apontando para o <strong>{Rubie}@{Gemset}</strong> que você quer. Eu acho isso desnecessário, principalmente porque você pode querer usar o passenger com várias Rubies diferentes, que é o que vou abordar mais adiante. Portanto, eu prefiro ficar com a primeira opção.</p>
+<p>Agora basta configurar o VirtualHost (presumo que você já sabiba fazer isso) e reiniciar o Apache. Nesse momento tudo já deve estar funcionando corretamente e você deve estar conseguindo ver sua aplicação funcionando. Não se esqueça de configurar o <strong>/etc/hosts</strong> (é bastante comum ver gente capotando porque esqueceu essa parte, rs).</p>
+<h3><strong>Múltiplas apps em Rubies diferentes</strong></h3>
+<p>Segundo a documentação do Passenger, <a href="http://www.modrails.com/documentation/Users%20guide%20Apache.html#PassengerRuby" target="_blank">a diretiva PassengerRuby deve ser usada apenas uma vez</a>, nos limitando a ter nossas aplicações em uma Rubie/Gemset única. Uma maneira comum de trabalhar com essa limitação é instalar o <a href="http://www.rubyenterpriseedition.com/" target="_blank">Ruby Enterprise Edition (i.e. Ruby EE)</a> ou qualquer versão de Ruby e instalar todas as gems de todos os projetos nessa Rubie. A partir daí, basta criar um VirtualHost para cada Aplicação. Essa era a forma que trabalhavamos sem RVM. Com RVM a idéia e sair dessa limitação, podendo por exemplo rodar uma app usando Ruby 1.8.7 com Rails 2.3 e outra com Ruby 1.9.2 e Rails3. Isso inclusive num ambiente de produção, isolando bem as apps e evitando conflitos. Vamos portanto resolver o problema de outra maneira.</p>
+<h3><strong>Criando uma nova configuração para o Apache</strong></h3>
+<p>Talvez você não saiba, mas o diretório <strong>/etc/apache2</strong> não é o servidor Apache HTTPD propriamente dito, mas as configurações que esse servidor usa quando você sobe a instância. Por padrão, o <strong>apachectl</strong> procura as configurações nesse diretório, mas é perfeitamente possível indicar o path do arquivo de configuração que você quer usar, e é baseado nisto que vamos usar uma alternativa melhor.</p>
+<p>Antes de qualquer coisa, vamos trocar alguns parâmetros na configuração default do Apache, para podermos rodar mais de uma instância sem nenhum tipo de problema acidental. Por padrão, nas configurações em <strong>/etc/apache2/httpd.conf</strong> tem um <strong>Listen</strong> definito para <strong>*:80</strong>. Vamos mudar isso:</p>
+<p><strong>Listen 127.0.0.1:80</strong></p>
+<p>Mudemos também quaisquer configurações de VirtualHost existentes que estejam usando *:80:</p>
+<p><strong>VirtualHost 127.0.0.1:80</strong></p>
+<p>Agora chegou a hora de clonar essas configurações para uma nova. Esse trabalho é um pouco chato, portanto resolvi criar um Shell Script para isso chamado <a href="http://gist.github.com/481665">osx-clone-apache.sh</a> que pode ser <a href="http://gist.github.com/raw/481665/63fe90110b0466a186b28d8be05a4e5194ab2db4/osx-clone-apache.sh" target="_blank">baixado aqui</a> e está no <a href="http://gist.github.com/emerleite" target="_blank">meu gist</a>. Já testei no Snow Leopard e Leopard. Se alguém quiser fazer um para ubuntu e outros SOs é bem vindo e eu coloco como update no artigo.</p>
+<p>Baixe o Script e execute a seguinte linha no terminal:</p>
+<p><strong>$ sudo ./osx-clone-apache.sh http-clone 127.0.0.1:80 127.0.0.2:80</strong></p>
+<p>Onde <strong>http-clone</strong> é o nome da nova configuração que será criada dentro de <strong>/etc</strong>, <strong>127.0.0.1:80</strong> é o <strong>Listen</strong> que está configurado em <strong>/etc/apache2</strong> e <strong>127.0.0.2:80</strong> é o novo <strong>Listen</strong>. Essa nova configuração <strong>não leva nada do diretório other nem do passenger_pane_vhosts</strong> se você estiver usando o <a href="http://www.fngtps.com/passenger-preference-pane" target="_blank">Passenger Preference Pane</a>.</p>
+<p>Agora que temos uma nova config do apache apontando para 127.0.0.2:80 precisamos configurar nossa interface de rede para passar a responder a esse ip:</p>
+<p><strong>$ ifconfig lo0 alias 127.0.0.2/32</strong></p>
+<p>Se não me engano, no Ubuntu isso não é necessário, mas no Mac eu não conheço outra forma de fazer isso. Se alguém souber é bem vindo.</p>
+<p>Nesse ponto basta repetir os mesmos procedimentos de configuração de Passenger para novas Rubies e Gemsets para essa nova configuração do apache que acabamos de criar. Mais uma vez não esqueça de ajustar suas configurações no <strong>/etc/hosts</strong>.</p>
+<p>O último passo é subir uma instância do apache usando as novas configurações criadas.</p>
+<p><strong>$ sudo apachectl -f /etc/{novaconfig}/httpd.conf -k start</strong></p>
+<p>Pronto, você já tem 2 instâncias do Apache rodando versões de Ruby/Rails diferentes na mesma máquina.</p>
+<h3><strong>Conclusão</strong></h3>
+<p>O RVM (Ruby Version Manager) trouxe uma nova perspectiva no gerênciamento de ambientes Ruby/Rails. O Deploy de Aplicações com versões de Ruby e Rails usando Phusion Passenger numa mesma máquina se torna trivial, desde que se saiba o que está fazendo. As configurações apresentadas neste artigo podem (e acho que devem) ser usadas também em ambiente de produção, pois a SANDBOX criada é muito mais simples de ser gerênciada do que aquela mistura habitual de VirtualHosts, Gems e afins.</p>
+<p>Mãos a obra !!!</p>

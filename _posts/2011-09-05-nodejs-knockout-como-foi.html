@@ -1,0 +1,51 @@
+---
+layout: post
+title: Node.JS Knockout - Como foi
+date: 2011-09-05 02:44:00.000000000 -03:00
+categories:
+- nodejs
+tags:
+- eventos
+- nodejs
+- nodeknockout
+- nodeko
+- torneio
+status: publish
+type: post
+published: true
+meta:
+  dsq_thread_id: '404969842'
+  _edit_last: '2'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Hoje faz uma semana que participei do <a href="http://nodeknockout.com/">Node.JS Knockout</a>, um torneio estilo Rails Rumble, onde os participantes tem 48 horas para desenvolver uma aplicação do zero, sem direito a fazer nada antes nem nada depois. É tudo muito rígido e eles tem diversas técnicas para verificar quem está trapaceando.</p>
+<p>Vou tentar resumir como foi essa experiência, pois caso contrário ficaria muito longo, mas antes disso, estamos bem qualificados na categoria popularidade e o voto da galera ajuda muito. Portanto, se puder dar uma ajuda e votar no nosso projeto, basta entrar em <a href="http://driv.in">http://driv.in</a>, clicar no ícone VOTE KO e autorizar no facebook.</p>
+<h2>Equipe</h2>
+<p>Essa foi uma parte bem complicada. Formamos o time mais de 1 mês antes, mas por motivos pessoais 2 amigos não puderam participar e foi necessário chamar 2 novos para participar. A formação final pode ser conferida na página do time no site do evento - <a href="http://goo.gl/BdSyI">http://goo.gl/BdSyI</a>.</p>
+<p>O fato de mudar 2 pessoas foi algo um pouco complicado, pois apesar dos 2 novos terem feito um trabalho excepcional, houve um momento no sábado a tarde de alinhar coisas do projeto que já estavam bem definidas e teoricamente não seria necessário, caso esse imprevisto não tivesse acontecido. Mesmo diante dessas circunstâncias, acho que nos saímos muito bem, apesar de achar que perdemos tempo em alguns momentos e nesse caso qualquer tempo perdido compromete bastante.</p>
+<h2>Idéia de Projeto</h2>
+<p>Nossas idéias de projeto estavam bem confusas, até que o <a href="http://twitter.com/lquixada">Quixadá</a> surgiu com a idéia dos vídeos colaborativos e foi aceita por unanimidade. Isso também deu uma injeção de ânimos na galera, pois foi a primeira idéia que gerou empolgação em nós. Todas as outras eram legais, mas nada que nos fizesse achar que chegaríamos em algum lugar. No fim, a idéia se provou excelente e vamos inclusive continuar com o projeto após o término do torneio.</p>
+<h2>Desenvolvimento</h2>
+<p>Essa parte é um pouco longa de contar. Mas vamos nessa:</p>
+<p>Eu era o único membro do time com conhecimentos de Node.JS. Isso me deixava bem preocupado com o resultado. Mesmo sem conhecimento, o <a href="http://twitter.com/lquixada">Quixadá</a> validou um cenário básico do nosso projeto e já apresentou, antes mesmo do início. Isso foi bom para ter certeza que a idéia fazia sentido e era possível implementar. Ponto pra ele que teve iniciativa de fazer isso logo de cara, para evitar outras surpresas.</p>
+<p>O <a href="http://twitter.com/everton_carpes">Everton Carpes</a> é muito envolvido com o Debian e aliviou muito o meu lado fazendo toda a configuração do nosso servidor no Linode (nossas opções eram Joyent, Heroku, Nodejitsu e Linode). Inicialmente eu achei que eu mesmo iria ter que fazer tudo, mas o <a href="http://twitter.com/everton_carpes">Everton</a> teve uma participação brilhante configurando todo o servidor. Pouco precisei ajuda-lo, mais especificamente nas configurações de Node e outros pequenos detalhes.</p>
+<p>Enquanto o <a href="http://twitter.com/everton_carpes">Everton</a> resolvia os detalhes do servidor, eu estava focado em implementar o vídeo iniciando automaticamente ao mesmo tempo em todos os participantes de uma sala. Enquanto isso, o <a href="http://twitter.com/cainanunes">Cainã</a> e o <a href="http://twitter.com/lquixada">Quixadá</a> trabalhavam na parte visual do projeto (i.e. Design, HTML/CSS).</p>
+<p>E essa foi a nossa noite de sexta. Alguns ficaram durante a madrugada, outros foram para casa descansar.</p>
+<p>No sábado, trabalhamos bastante para fazer funcionar os vídeos tocando em sequência e a funcionalidade do usuário poder entrar no meio do vídeo e estar sincronizado com todos. Além disso, a playlist de vídeos também foi implementada. Enquanto essas features eram desenvolvidas,  nossa interface também era construída com primor pelo <a href="http://twitter.com/cainanunes"><a href="http://twitter.com/cainanunes">Cainã</a></a> em conjunto com o <a href="http://twitter.com/lquixada">Quixadá</a>. Esse foi nosso sábado.</p>
+<p>No domingo, apesar das partes principais em termos de features estarem prontas, ainda era necessário alguns ajustes na playlist, desenvolver o chat, controlar os carrinhos aparecendo e sumindo (membros da sala) e uma série de pequenas coisas, que somadas ocupariam todo o nosso domingo, o que de fato aconteceu. Assim que deu 21:00, tivemos que parar tudo, mas conseguimos implementar as principais features do sistema, apesar de alguns bugs.</p>
+<h2>Iterações/Corte de escopo</h2>
+<p>Por ser um torneio rápido (48 horas), foi necessário cortar escopo a todo momento, fazendo pequenas interrupções (de alguns minutos) para alinhar expectativas sobre o que já sabíamos que não daria tempo de ser feito. Isso foi um exercício bem interessante, pois muitos projetos ao invés de cortar escopo, adicionam mais pessoas e trabalham de forma sobrecarregada pra ver se é possível entregar tudo (o que eu acho uma grande furada). Como o torneio não permite mais do que 4 participantes e o prazo é fixo, cortar escopo era a nossa única alternativa. É interessante que tudo que cortamos do escopo será desenvolvido, só apenas não foi na primeira versão. O que fizemos foi um exercício de priorizar coisas. Todas as features que levantamos eram importantes, mas precisávamos ter bem claro quais eram prioritárias para a entrega do nosso primeiro release (o do torneio). Essa é a parte difícil pra muita gente, principalmente para que tem responsabilidade sobre o produto (i.e. Product Owners). Por vezes já passei por situações onde era necessário priorização mas quem era responsável pelo produto colocava tudo como prioridade. Quando tudo é prioridade, nada é prioridade. Você coloca tudo no mesmo nível de importância e não sabe o que é Core Feature do seu produto. Acho que isso poderia até fazer parte de algum teste para P.O, se é que posso dizer assim.</p>
+<h2>Problemas</h2>
+<p>No geral fomos bem. Sabíamos que as dificuldades viriam e não seria simples vence-las e desenvolver uma aplicação em 48 horas. A primeira das dificuldades foram os horários desencontrados. Alguns trabalharam até tarde na sexta, outros no sábado. Por conta disso houveram horários em que nem todos estavam juntos e dúvidas demoravam a ser respondidas/solucionadas. Da próxima vez acho que combinar um horário pode ser mais interessante.</p>
+<p>Outro ponto foram os bugs. Como o chat foi implementado já no apagar das luzes, esquecemos de escapar o input do usuário, permitindo XSS (Cross-Site Scripting) no nosso aplicativo. Isso foi uma falha grave, que está nos custando preciosos pontos na avaliação dos juízes. Outro bug foi do usuário entrar no meio do vídeo. A estratégia para o usuário que entra no meio do vídeo é adianta-lo 10 segundos (ssekTo) e pausa-lo, para que o mesmo gere um pouco de buffer. Quando todos os demais chegam nesse momento de 10 segundos pra frente, é hora de dar play nesse usuário. Por conta disso, em alguns momentos que faltavam menos de 10 segundos para terminar o vídeo, acontecia um bug e dava crash no servidor. Nós usamos o monit para garantir que sempre o processo dava start novamente, sendo assim não existia downtime da aplicação. Ao tentar resolver esse bug (ainda tinhamos tempo), geramos outro e a partir daí, ninguém mais conseguia entrar no meio do vídeo. #epicfail. No momento que percebemos isso, já havia estourado o tempo e nada podíamos fazer. Chegamos a editar o arquivo direto em produção apenas para validar o bug (que era ridículo de resolver) e em seguida voltamos o código, pois a regra não permitia alterações após o término do horário.</p>
+<h2>Resultado do projeto</h2>
+<p>Nós ficamos muito satisfeitos com o projeto. Tanto é que pretendemos continuar com ele. Já clonamos o projeto numa conta nossa privada do github e estamos adicionando issues para assim que a votação encerrar e estivermos liberados para fazer mudanças.</p>
+<h2>Balanço final</h2>
+<p>Contar como foi o Node Knockout de maneira resumida é bem complicado. Posteriormente entrarei em detalhes técnicos do projeto, que agora tornariam esse post muito longo. O que posso dizer sobre esse torneio é que valeu muito a pena em todos os aspectos. Tanto na parte técnica, quanto na parte de produto, mas principalmente na parte de auto-organização e gestão de prioridades e tempo. Certamente repetirei em outras oportunidades.</p>
+<p>Um agradecimento especial para os membros do meu time: <a href="http://twitter.com/cainanunes"><a href="http://twitter.com/cainanunes">Cainã</a> Nunes</a>, <a href="http://twitter.com/everton_carpes">Everton Carpes</a> e <a href="http://twitter.com/lquixada">Leonardo Quixadá</a>. Todos foram fantásticos.</p>
+<p>PS: Não se esqueçam de votar no nosso projeto. Encerra as 21:00 do Brasil, hoje, dia 05/09/2011. Segue o link novamente - <a href="http://driv.in">http://driv.in</a>, clicar no ícone VOTE KO e autorizar no facebook.</p>

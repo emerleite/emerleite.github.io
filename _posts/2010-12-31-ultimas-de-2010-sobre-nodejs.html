@@ -1,0 +1,49 @@
+---
+layout: post
+title: "Últimas de 2010 sobre Node.JS"
+date: 2010-12-31 13:28:42.000000000 -02:00
+categories:
+- nodejs
+- pensamentos
+- Sem categoria
+tags:
+- acontecimentos
+- nodejs
+- retrospectiva
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '200570491'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>O ano de 2010 vai terminando. Esse foi um ano onde o <a href="http://nodejs.org/">Node.JS</a> começou a ganhar um forte hype. Muitos frameworks surgindo, muita gente blogando sobre o assunto. Palestras, eventos e outras coisas mais. Depois de um tempo sem blogar sobre Node (eu sou empregado em tempo integral e no dia a dia trabalho com outras tecnologias), vou tentar fazer um resumo do que eu tenho acompanhado nesses últimos meses.</p>
+<h2>JSConf.eu</h2>
+<p>O tradicional evento Europeu de Javascript contou com <a href="http://jsconf.eu/2010/speakers.html">diversas apresentações sobre Node.JS</a>. Muitos devs criando coisas legais e apresentando nesse evento. Foi bem diferente do <a href="http://jsconf.us/2010/schedule.html">JSConf.us</a> desse mesmo ano, que sobre <a href="http://nodejs.org/">Node.JS</a> só teve mesmo a palestra do <a href="http://twitter.com/ryah">Ryan Dahl</a>, o autor da ferramenta.</p>
+<h2>Node.js Camp</h2>
+<p>Agora em Dezembro aconteceu o que podemos chamar de o <a href="http://camp.nodejs.org/">primeiro evento somente sobre Node.JS</a>, promovido e patrocidado pela <a href="http://www.joyent.com/">Joyent</a>, que é a empresa que mais tem investido na tecnologia, <a href="http://joyeur.com/2010/11/09/a-new-abode-for-node/">inclusive tendo contratando recentemente o Ryan Dahl</a>.</p>
+<p>Nesse evento tivemos <a href="http://camp.nodejs.org/agenda.html">diversas palestras</a> dos desenvolvedores das principais ferramentas associadas ao Node, como <a href="http://socket.io">Socket.io</a>, <a href="https://github.com/isaacs/npm">NPM</a>, entre outros. Eu queria muito ter ido a esse evento, mas infelizmente isso não era uma opção, pois <a href="http://codificando.com/2010/12/os-desafios-novo-player-de-vdeos-da-globocom/">tinha compromissos no meu trabalho</a>.</p>
+<h2>Ecossistema</h2>
+<p>No segundo semestre deste ano, aconteceu uma explosão de bibliotecas para Node.JS. Hoje em dia existe biblioteca para fazer praticamente qualquer coisa que fazemos com outras tecnologias web, desde action frameworks, acesso a bancos relacionais e NoSQL até frameworks de testes automatizados e test doubles. Vale a pena uma conferida nas principais bibliotecas, acessando <a href="https://github.com/ry/node/wiki/modules">a página de módulos do projeto</a>.</p>
+<p>No github, <a href="https://github.com/languages">Javascript empatou com Ruby como linguagem mais utilizada</a>, graças a explosão de repositórios node-* ou *.js, bastando uma busca rápida para perceber o quanto esses repositórios tem alavancado Javascript.</p>
+<p>O site <a href="http://howtonode.org">howtonode.org</a> vem ganhando bastante destaque pelo seu ótimo conteúdo de diversos autores, se tornando referência internacional no assunto.</p>
+<h2>Hosting</h2>
+<p>A <a href="http://www.joyent.com/">Joyent</a> abriu bem mais slots para sua hospedagem beta, oferecida no site <a href="https://no.de/">no.de</a> (vale um post em separado só sobre eles). Basicamente você precisa de um token, o qual você solicita e depois recebe o alerta por email de que o token já está disponível. Tenho usado essa hospedagem gratuita pra fazer alguns testes e tenho gostado bastante. É possível atualizar a versão do Node, fazer restart do serviço, olhar os logs tranquilamente e instalar pacotes livremente. Só não sei se colocaria alguma coisas séria nele nesse momento, pois ainda está muito no começo. Por enquanto deixo para testes e brincadeiras.</p>
+<p>Mais recentemente, <a href="http://www.nodejitsu.com/">a NodeJitsu começou a oferecer também como beta uma hospedagem</a>, mas essa até agora não consegui o invite :(, apensar de volta e meia eu colocar meu email lá, na expectativa de conseguir. É mais recente que o <a href="https://no.de/">no.de</a>, mas parece que vai ser tão interessante quanto, pois também tem um fluxo baseado no git.</p>
+<p>O <a href="http://blog.heroku.com/archives/2010/9/20/an_update_on_heroku_node_js_support/">Heroku fechou temporáriamente o suporte a Node para novos usuários</a>. Basicamente eles estão fazendo algumas mudanças e devem abrir novamente agora no início de 2011. Baseado no excelente trabalho que eles tem feito com Ruby, tenho certeza que vão mandar muito bem com Node, mas até que isso aconteça, o Heroku não é uma opção.</p>
+<h2>Destaques</h2>
+<p>Dentre vários acontecimentos e lançamentos, alguns merecem um destaque maior. Vamos a eles:</p>
+<p>A <a href="http://www.cloud9ide.com/">IDE Cloud9</a> é um projeto muito interessante da <a href="http://ajax.org">ajax.org</a> para provar o conceito de IDEs no browser. Antes de testar o projeto achei que ia ser mais uma toscaria que já ví muita gente tentando por ai. Pra minha surpresa foi exatamente o contrário. A responsividade quando você está editando o código é muito boa, e apesar de algumas poucas vezes bugar, está extremamente aceitável para um projeto que ainda está começando. Esse projeto foi lançado na JSConf.eu, a qual mencionei no início do post e tem um <a href="http://cloud9ide.posterous.com/30489348">vídeo disponível da apresentação</a>.</p>
+<p>Outro destaque interessante, mas um pouco mais simples é o <a href="http://jsapp.us/">JsApp.US</a>, um serviço onde você pode criar uma aplicação inteira usando apenas a página deles, de forma online. Dá pra testar o arquivo isoladamente na hora ou fazer deploy direto num subdomínio. Achei um pouco estranho desenvolver assim, mas é muito interessante, pois além do editor de código online, existe uma espécie de shell no final que te permite executar comandos do tipo salve, deploy, open, entre outros. Tem um autocomplete inclusive. Em fim, apesar de ser um paradigma diferente eu acabei gostando bastante. A diferença dele para o <a href="http://www.cloud9ide.com/">Cloud9</a> é que a <a href="http://www.cloud9ide.com/">IDE Cloud9</a> por enquanto você instala na sua máquina e esse já um <a href="http://en.wikipedia.org/wiki/Software_as_a_service">SaaS (Software as a Service)</a>, com editor e hospedagem juntos. O melhor de tudo é que o serviço é gratuito.</p>
+<p><a href="http://rocketpack.fi/engine/">Rocket Pack Game Engine</a> é uma engine experimental para jogos multiplayer. Falei um pouco sobre essa engine no <a href="http://www.slideshare.net/emerleite/devinrio-2010-nodejs">DevInRio 2010</a> e na <a href="http://www.slideshare.net/emerleite/beyond-ruby-with-nodejs-rubyconf-brasil-2010">RubyConf Brasil 2010</a>. Muitos desenvolvedores e empresas estão enxergando Node.JS como uma ótima plataforma para construir servidores para esse fim.</p>
+<p>Um destaque não menos importante foi o <a href="http://sodajs.com/">Soda</a>, da <a href="http://blog.learnboost.com/">LearnBoost</a>, uma das primeiras a postar conteúdo sobre Node.JS. Basicamente é um adapter para usar o Selenium. Em parceria com a <a href="https://saucelabs.com/">SauceLabs</a>, existe <a href="http://saucelabs.com/docs/sauce-ondemand/basic-example-js">um serviço para testes</a> usando uma estrutura cloud.</p>
+<p>Outro grande destaque desse fim de ano foram os 2 projetos relacionados ao <a href="http://dev.w3.org/html5/canvas-api/canvas-2d-api.html">Canvas 2D</a>, um da <a href="http://blog.learnboost.com/">LearnBoost</a> e outro da <a href="http://ajax.org">ajax.org</a>. Acabam sendo concorrentes uma da outra, mas espero que aconteça um merge em breve. Vale a pena conferir <a href="http://ajaxorg.posterous.com/canvas-api-for-nodejs">o da ajax.org</a> e <a href="http://blog.learnboost.com/blog/introducing-node-canvas-server-side-html5-canvas-api/">o da LearnBoost</a>.</p>
+<p>Uma das aplicações mais fantásticas que vi feitas em Node.JS até hoje foi o <a href="http://transloadit.com/">Transloadit</a>, um <a href="http://en.wikipedia.org/wiki/Software_as_a_service">SaaS</a> para upload de fotos e vídeos, que oferece Crop/Resize, Video Encoding, Thumbnail extraction e integração com o S3. Esse serviço merece um post separado, mas basicamente você consegue definir um fluxo básico montando um JSON para definir os passos para o processamento do arquivo recebido pela ferramenta de upload. Eles chamam esse processo de Assembly (isso lembra alguma coisa?). Uma degustada na <a href="http://transloadit.com/docs/assemblies">documentação dessa parte</a> é bem interessante.</p>
+<h2>Pra fechar</h2>
+<p>Pra fechar bem o ano temos a <a href="http://www.infoq.com/interviews/node-ryan-dahl">entrevista de Ryan Dahl no InfoQ</a> e o <a href="http://groups.google.com/group/nodejs/browse_thread/thread/b1e7196eb6e4a990?pli=1">release 0.2.6</a> lançado hoje, 31/12/2010.</p>

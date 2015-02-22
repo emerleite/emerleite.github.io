@@ -1,0 +1,50 @@
+---
+layout: post
+title: JBehave Brasil - BDD em Java no nosso idioma
+date: 2009-04-15 16:00:52.000000000 -03:00
+categories:
+- agile
+- bdd
+- java
+- jruby
+- pragmatic
+- tdd
+- testes
+- tools
+tags:
+- bdd
+- engenharia
+- java
+- jruby
+- tdd
+- testes
+- xp
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '83613346'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>No mês passado, resolvi aplicar <a href="http://en.wikipedia.org/wiki/Behavior_Driven_Development" target="_blank">BDD</a> em um projeto Java que estava desenvolvendo. Atualmente, existem <a href="http://wiki.github.com/aslakhellesoy/cucumber/jruby-and-java" target="_blank">ferramentas</a> em <a href="http://jtestr.codehaus.org/" target="_blank">outras linguagens</a> que podem ser usadas para esse fim. Por uma série de razões, resolvi usar o <a href="http://jbehave.org/" target="_blank">JBehave</a> para resolver o meu problema nesse projeto em específico (lembre-se, não existe bala de prata). Acontece que o JBehave é todo em Inglês e não dá suporte a i18n.</p>
+<p>Quando comecei a usa-lo no meu projeto, logo percebi que usar em inglês não seria legal, pois o projeto só fazia sentido no Brasil e portanto o interessante era escrever os cenários em português. A partir desse momento, comecei a escrever algumas classes pra fornecer esse suporte. Felizmente, as classes <a href="http://jbehave.org/javadoc/latest/core/org/jbehave/scenario/Scenario.html">Scenario</a> e <a href="http://jbehave.org/javadoc/latest/core/org/jbehave/scenario/steps/Steps.html" target="_blank">Steps</a> permitem fácil extensão para resolver esse problema. Após as modificações necessárias, o arquivo de cenário passou a se chamar <strong>nome.cenario</strong> e o texto no arquivo ficou da seguinte forma:</p>
+<p>[sourcecode language="xml"]</p>
+<p>Como um Bom testador<br />
+Eu quero testar todo meu sistema<br />
+Para garantir a qualidade</p>
+<p>Cenário: Nome em português do Brasil</p>
+<p>Dado que eu quero rodar o Jbehave em português do Brasil<br />
+Quando eu usar o meu idioma<br />
+E estiver testando<br />
+Então tudo deve funcionar<br />
+E eu sou feliz</p>
+<p>[/sourcecode]</p>
+<p>Feito isso, achei legal disponibilizar uma biblioteca para que outros desenvolvedores que precisem usar o <a href="http://jbehave.org/" target="_blank">JBehave</a> no nosso idioma possam faze-lo de forma trivial. Nesse momento nasceu o projeto <a href="http://github.com/emerleite/jbehave-br" target="_blank">jbehave-br</a>, extraido desse projeto e disponibilizado no GitHub <a href="http://github.com/emerleite/jbehave-br" target="_blank">aqui</a>. O projeto é muito simples e pequeno, com o objetivo de resolver especificamente esse problema e nada mais.</p>
+<p>[UPDATE] O Jbehave agora suporta internacionalização e refatorei essa biblioteca para se aproveitar disso. Está totalmente compatível com a versão 2.5[/UPDATE]</p>

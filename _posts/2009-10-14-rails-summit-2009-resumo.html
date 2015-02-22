@@ -1,0 +1,77 @@
+---
+layout: post
+title: Rails Summit 2009 - Resumo
+date: 2009-10-14 20:57:17.000000000 -03:00
+categories:
+- agile
+- bdd
+- design
+- engenharia
+- jruby
+- rails
+- ruby
+- tdd
+- testes
+tags:
+- agile
+- evento
+- rails
+- ruby
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '83665035'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>O Rails Summit terminou. Foi um evento bem legal, com ótimas palestras e a galera de sempre, que já conhecemos.</p>
+<p>Vou fazer um resumo das palestras que assisti.</p>
+<p><strong>Chad Fowler - <a href="http://chadfowler.com">http://chadfowler.com</a><br />
+</strong></p>
+<p>A palestra do Chad foi como sempre focada em carrreia. Ele advertiu os desenvolvedores que produzem porcaria todo dia sem peso algum na consciência. Ele pensa (e eu também) que nós não devemos investir tempo desnvolvendo coisas que já sabemos que são porcaria. E isso não é pessimismo, simplesmente é não perder tempo.</p>
+<p>Chad falou também sobre os FUDs que sempre usam contra Ruby/Rails. Isso não foi nenhuma novidade mas ele abordou de forma bem divertida e valeu muto a pena.</p>
+<p>Uma das partes mais legais foi a estatística mostrando que Ruby só faz parte de 6% da requisição do usuário. Na verdade não só ruby, mas outra tecnologia também. Isso bom para refletirmos sobre as discussões sobre performance e escalabilidade das aplicações web.</p>
+<p><strong>Gregg Pollack - <a href="http://envlabs.com">http://envlabs.com</a><br />
+</strong></p>
+<p>O foco da palestra do gregg foi sobre como atacar alguns pontos para o otimizar sua aplicação Rails. Dentre as formas, ele apresentou algumas gems/plugins que ajudam a identificar alguns pontos para melhoria de performance em uma aplicação. Vou destacar algumas:</p>
+<ul>
+<li>Bullet - Ajuda a identificar queries com alguns problemas. Ex: N + 1</li>
+<li>Rails Indexes - Identifica colunas onde deveriam ter índices. Se baseia nas buscas do sistema.</li>
+<li>Scrooge - Faz com que o ActiveRecord passe a buscar somente os campos que estão sendo usados, ao invés de buscar todos os campos. Ex: em um find(:all), após a primeira execução, o scrooge identifica quais campos foram usados e ná próxima vez modifica a query para não buscar os campos desnecessários.</li>
+<li>Rack Bug - É uma Monitor para aplicações Rack. Fornece basicamente todas as informações. Sessões, CPU, Memória, etc. Bem útil</li>
+<li>oink - Mostra detalhes dos requests de cada controller. Ex: consumo de memória.</li>
+<li>Cloud Crowd - Servidor para rodar tarefas em background. Feito em sinatra.</li>
+</ul>
+<p><strong>Ilya Grigorik - <a href="http://www.igvita.com/about/">http://www.igvita.com/about/</a><br />
+</strong></p>
+<p>Ilya falou sobre integração/comunicação de aplicações baseadas em web, utilizando-se de tecnologias como XMPP, AMQP, Webhooks, PubsubHubbub. Foi bem interessante, pois a maioria do auditório conhecia pouco sobre o assunto.</p>
+<p><strong>Fabio Akita - <a href="http://akitaonrails.com">http://akitaonrails.com</a><br />
+</strong></p>
+<p>A palestra do akita foi sobre agile. Ele falou bastante sobre a teoria do caos, sistemas complexos e a evolução das coisas. No fim, o recado maior foi alertar que agile não é o último estágio no desenvolvimento de software, deixando claro que temos (e vamos) que evoluir ainda mais.</p>
+<p><strong>Glenn Vanderburg - <a href="http://blog.thinkrelevance.com">http://blog.thinkrelevance.com</a><br />
+</strong></p>
+<p>Palestra sobre o framework Tarantula, que tem por objetivo fazer testes de ataques XSS, SQL Injection, entre outros. Achei bem interessante, pois é possível automatizar esse passo, que geralmente fazemos manualmente. Glenn inclusive sugeriu que faça parte do build antes de lançar um release.</p>
+<p><strong>Fabio Kung - <a href="http://fabiokung.com/">http://fabiokung.com/</a><br />
+</strong></p>
+<p>Fabio fez uma ótima palestra sobre DSLs (Domain Specific Languages) internas usando Ruby. Ao invés de apresentar exemplos simples ele apresentou um exemplo real de uma necessidade de uma aplicação que trata de instâncias de máquinas na cloud da Locaweb.</p>
+<p><strong>Carlos Vilella <a href="http://lixo.org">http://lixo.org</a><br />
+</strong></p>
+<p>Carlos fez uma palestra bem curta, falando sobre o uso de Ruby na Thoughtworks. Falou sobre os poucos projetos que falharam e deixou o restante do tempo para perguntas.</p>
+<p><strong>Tapajós - <a href="http://tapajos.me/">http://tapajos.me/</a><br />
+</strong></p>
+<p>A palestra do Tapajós foi sobre bancos de dados não relacionais. Focado bastante em CouchDB e Rails, ele explorou algumas features chaves na utilização dessa abordagem de banco de dados, também fazendo uma curta palestra e deixando boa parte do tempo para perguntas.</p>
+<p><strong>Bruno Miranda - Rails não escala</strong></p>
+<p>Eu gostei muto da palestra do Bruno, apesar de achar que o que ele falou é básico para qualquer Arquiteto de Software experiente.  Bruno falou bastante sobre filas, sharding, Cache, Proxy reverso, otimização de queries e sobre rodar processos em background. Acho que a palestra dele foi válida pois qualquer um hoje em dia que aprende tecnologias como Rails sai fazendo aplicações sem um conhecimento mínimo de arquitetura de software. Quando as coisas não dão certo culpam a tecnologia, gerando FUDs.</p>
+<p><strong>Vinicius Teles (<a href="http://improveit.com.br/">http://improveit.com.br/</a>) - Empreendorismo</strong></p>
+<p>A palestra do Vinícius foi ótima para quem pretende desenvolver um produto e/ou abrir seu próprio negócio. Ele abordou pontos como Fluxo de Caixa, oportunidades vastas que existem no Brasil e o impacto de pequenas decisões certas ou erradas que tomamos na nossa vida profissional.</p>
+<p><strong>Obie Fernandes - <a href="http://obiefernandez.com/">http://obiefernandez.com/</a><br />
+</strong></p>
+<p>A palestra do Obie encerrou o evento em grande estilo, falando sobre talento, esforço e reforçando bem <a href="http://codificando.com/2009/06/07/afinal-o-que-seria-um-profissional-senior/">o que eu disse há um tempo atrás nesse blog</a>. Não adianta você saber um monte de coisas se não souber bem, se não tiver experiência com isso, treino, treino e mais treino. Você só ganha nível com tempo e treino, isso é fato.</p>
+<p>Pra finalizar, gostaria de parabenizar ao <a href="http://akitaonrails.com">Fabio Akita</a> e a <a href="http://www.locaweb.com.br">Locaweb</a> pelo excelente evento mais uma vez.</p>
+<p>E ano que vem tem mais.</p>

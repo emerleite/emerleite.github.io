@@ -1,0 +1,62 @@
+---
+layout: post
+title: Seu software também deve comunicar-se corretamente
+date: 2010-06-16 15:43:11.000000000 -03:00
+categories:
+- engenharia
+- pensamentos
+tags:
+- engenharia
+- interface
+- pensamentos
+- ui
+- ux
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '110032828'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p><a href="http://www.versatilcomunicacao.com.br/versa/release_detalhe.asp?id=308" target="_blank">Alguns estudos apontam que o maior problema da maioria das empresas é a comunicação</a>. Esforços incansáveis são feitos para melhorar isso e todos sabemos que é um grande desafio. Mas e o Software? Será que este também não deveria comunicar-se de forma mais clara com seus usuários?</p>
+<p><strong>Exemplo triste - Aconteceu comigo :(</strong></p>
+<p>Ontem a tarde me aconteceu uma situação pouco comum. Após terminar o jogo do Brasil pela Copa 2010, fui com minha esposa ao supermercado fazer algumas compras. Compramos um bocado de coisas. Diria que fiquei mais de 1 hora no mercado. Na hora de pagar, eis que surge um problema. O cartão Alimentação Pass da <a href="http://br.sodexo.com" target="_blank">Sodexo</a> não funcionou. A máquina informou a seguinte mensagem: <strong>"FALHA NA COMUNICAÇÃO"</strong> (que imagino ser um problema de rede ou algo do tipo). A caixa do mercado repetiu o processo em outra máquina e o problema permaneceu. Até ai tudo bem. Afinal, indisponibilidade é algo que pode acontecer.</p>
+<p>Passado alguns minutos, a caixa chamou o fiscal do mercado que nos atendeu de forma simpática e pegou uma outra máquina para tentar novamente fazer o pagamento (nesse momento eu já estava pensando em usar o cartão do banco de deixar pra lá o sodexo). Eis que a máquina informa que o saldo estava zerado, ou seja, teoricamente em alguma das passagens a compra foi paga. Percebi então que uma simples ida ao mercado ia me dar uma dor de cabeça sem tamanho.</p>
+<p>O simpático fiscal, ao verificar o problema, foi a gerência da loja para tirar relatórios e verificar o que aconteceu. Voltando, a única coisa que saiu no relatório foram transações não concluídas. Nesse momento eu perguntei ao fiscal: O sistema não informa qual foi o problema? Ele me disse: Não, o sistema só informa que não foi relalizada. Acabei ficando sem saber o que estava acontecendo de fato, já que meu saldo estava zerado. A minha única certeza é que em algum lugar foi debitado a compra do meu cartão sodexo.</p>
+<p>O próximo passo foi tentar verificar na sodexo. Abri meu iphone e entrei no site para verificar o saldo. Digitando o número do cartão e cpf, recebi a mensagem <strong>"Não foi encontrado um cartão para os dados informados"</strong>. Achei um pouco estranho e liguei para um amigo, passei meus dados e pedi para ele verificar, pois poderia ser que o site não oferecesse um comportamento correto no browser do iphone. Ele verificou e a mesma mensagem apareceu. Caiu a ficha. Estava acontecendo algum problema grave na Sodexo.</p>
+<p>Liguei então para central de atendimento. O atendimento eletrônico me pediu o número de cartão e senha e em seguida me informou o saldo. Para minha surpresa, o saldo era o dobro do saldo que deveria ser, ou seja, nem estava zerado, nem estava correto. Comecei a falar com o atendente e pedi meu saldo novamente. Ele me disse: Seu saldo é zero. Retruquei: Como zero se o atendimento eletrônico me disse o saldo X? Ele respondeu: Houve uma queda geral nos sistemas e estamos dando o prazo de até as 00:00 de hoje para tudo voltar ao normal.</p>
+<p>No fim das contas paguei com cartão de débito do banco.</p>
+<p><strong>Análise do problema.</strong></p>
+<p>Após esse incidente, pensei um pouco sobre esse sistema de pagamentos.</p>
+<p>Sobre a compra, provavelmente o que aconteceu é que o Sodexo debitou o valor e como a máquina não respondeu e o sistema caiu, a transação deve ter ficado pendente, prendendo meu saldo. Nesse momento, fazia sentido não ter saldo até que o sistema fosse restabelecido por completo. Mesmo assim, alguma coisa me incomodou. <strong>Por que a mensagem de retorno não poderia informar o que estava acontecendo? </strong>Não poderia informar alguma coisa melhor que "FALHA NA COMUNICAÇÃO"? Naquela hora, eu não sabia se o problema era da Sodexo, que não informava um código/retorno de erro adequado, ou se a máquina não tratava os retornos de erros corretamente.</p>
+<p>Enviar mensagens de erro corretamente e fazer tratamento de forma adequada são fundamentais na comunicação com o usuário, quando o sistema apresenta comportamentos inesperados. A falta de atenção nisso é mais comum do que parece e vou exemplificar. Existem diversos sistemas que ignoram mensagens, como por exemplo situações onde um dos lados (ou ambos) em uma comunicação  <a href="http://formassembly.com/blog/treating-the-http-status-code-right/" target="_blank">ignoram os status code http</a>. Ex:</p>
+<p>[code]<br />
+HTTP/1.1 200 OK<br />
+Content-Type: text/xml</p>
+<p>&lt;error&gt;<br />
+  &lt;code&gt;123&lt;/code&gt;<br />
+  &lt;message&gt;Ocorreu um erro&lt;/message&gt;<br />
+&lt;/error&gt;<br />
+[/code]</p>
+<p>Percebeu o problema?</p>
+<p>Outro caso bem comum acontece quando quem envia uma mensagem para um objeto trata todos os retornos de erros de forma igual e não mostra claramente a mensagem. Ex:</p>
+<p>[code language="java"]<br />
+try {<br />
+  objeto.fazAlgumaCoisa();<br />
+catch (Exception e) {<br />
+  log.error(&quot;Deu algum erro&quot;);<br />
+}<br />
+[/code]</p>
+<p>Já vi muito código assim e isso dificulta bastante pra quem está tentando entender o que está acontecendo.</p>
+<p>Pior que isso foi o sistema web me dizer que não achou meu cartão, quando na verdade algum outro sistema que esse se comunica estava fora do ar. Não podia simplesmente informar algo como <strong>"Nosso sistema está em manutenção, previsão de retorno para X horas"</strong>? Cartão inexistente é inadmissível, pois certamente o cliente ficará confuso sobre o que está acontecendo.</p>
+<p>E o saldo no atendimento eletrônico que estava dobrado? Eu aprendi certa vez que esse tipo de informação deveria vir de <a href="http://www.c2.com/cgi/wiki?DontRepeatYourself" target="_blank">somente um lugar</a>. No caso eu obtive 3 valores diferentes para meu saldo, o que me indica que esse principio não foi respeitado.</p>
+<p>E sobre a indisponibilidade do sistema? Que tal enviar automaticamente um SMS/twitter/email ou qualquer outra coisa para que os clientes possam se preparar para esse tipo de situação? Ser pego de surpresa é sempre ruim.</p>
+<p><strong>Conclusão</strong></p>
+<p>Comunicação não é só importante entre pessoas. Nossos Softwares precisam comunicar-se adequadamente com seus usuários. Muitos ignoram isso completamente. Tenho certeza que podemos melhorar isso.</p>

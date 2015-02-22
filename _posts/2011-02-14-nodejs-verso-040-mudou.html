@@ -1,0 +1,30 @@
+---
+layout: post
+title: Node.JS Versão 0.4.0 - O que mudou ?
+date: 2011-02-14 21:27:16.000000000 -02:00
+categories:
+- nodejs
+tags:
+- anúncios
+- api
+- nodejs
+- release
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '230562627'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>No último dia 10/02/2011, foi lançada a <a href="http://nodejs.org/v0.4_announcement.html">versão 0.4.0 do Node.JS</a> (confira o <a href="https://groups.google.com/forum/#!topic/nodejs/xXpTqvDXSlo/discussion">anúncio na lista oficial</a>). Esta é a primeira versão stable depois dos releases 0.2.x. Sempre foi claro que os releases 0.3.x eram totalmente unstable e que estavam servindo de base para os releases 0.4.x. Portanto, todos deveriam conseguir atualizar suas aplicações para essa versão sem muitos problemas.</p>
+<p>Dentre as principais mudanças, destaco as melhorias no suporte a SSL, que é uma das coisas que precisava melhorar no <a href="http://nodejs.org/">Node.JS</a>.</p>
+<p>Outro ponto importante foi <a href="https://github.com/ry/node/blob/01a864a29d64119054401784cd9255c3a813bdbc/doc/api/modules.markdown">a mudança no sistema de módulo</a>s. Agora o require usa paths completos, ou seja, agora consegue funcionar com links simbólicos. Além disso, o require também entende o package.json, que é o arquivo que define um pacote node. E por último, mas talvez o mais importante é que agora você pode ter um diretório <em>node_modules</em> no seu projeto e o require vai procurar pelos módulos primeiro nele, antes de ir buscar em outros locais, facilitando muito "vendorizar" suas bibliotecas dependentes.</p>
+<p>O Node também atualizou a versão do <em>V8 para 3.1.2</em> e agora temos uma API um pouco menos burocrática de <a href="http://nodejs.org/docs/v0.4.0/api/http.html#http.request">HTTP Client</a>.</p>
+<p>Existe também um <a href="http://nodejs.org/docs/v0.4.0/api/os.html">novo módulo chamado OS</a>, que trás algumas operações para pegar informações sobre o gerênciamento do sistema, como número de CPUs, quantidade de memória total/livre e informações gerais do sistema operacional.</p>
+<p>Confira a <a href="http://nodejs.org/docs/v0.4.0/api/">documentação da API 0.4.0</a>.</p>

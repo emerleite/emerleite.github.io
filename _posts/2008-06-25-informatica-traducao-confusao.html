@@ -1,0 +1,61 @@
+---
+layout: post
+title: Informática + Tradução = Confusão
+date: 2008-06-25 17:19:17.000000000 -03:00
+categories:
+- design
+- java
+- livros
+- pattern
+- pragmatic
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '83664786'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<p>Uma discussão que <a href="http://www.guj.com.br/posts/list/15/94314.java" target="_blank">sempre vem a tona no forum do GUJ</a> e em conversas entre colegas de trabalho, é sobre o uso do pattern <a href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/TransferObject.html" target="_blank">TO</a>/<a href="http://martinfowler.com/eaaCatalog/dataTransferObject.html" target="_blank">DTO</a> (Antigo VO, que hoje em dia <a href="http://martinfowler.com/eaaCatalog/valueObject.html" target="_blank">significa outra coisa</a>). Eis o trecho do livro Core J2EE Patterns:</p>
+<blockquote><p><strong>Transfer Object</strong></p>
+<p><strong>Problem</strong><br />
+You want to <strong>transfer</strong> multiple data elements <strong>over a tier</strong>.</p>
+<p><strong>Forces</strong></p>
+<ul>
+<li>You want clients to <strong>access</strong> components <strong>in other tiers</strong> to retrieve and update data.</li>
+<li>You want to <strong>reduce remote</strong> requests <strong>across the network</strong>.</li>
+<li>You want to avoid <strong>network performance degradation</strong> coused by chattier applications that have <strong>high network traffic</strong>.</li>
+</ul>
+<p><strong>Solution</strong><br />
+Use a Transfer Object <strong>to carry</strong> multiple data elements <strong>across a tier</strong>.</p></blockquote>
+<p>O Pattern <a href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/TransferObject.html" target="_blank">Transfer Object</a>, foi criado para solucionar os problemas dos <a href="http://java.sun.com/j2ee/tutorial/1_3-fcs/doc/EJBConcepts4.html" target="_blank">Entity Beans</a> (EJB 2.x), quando retornados para outro <strong>TIER</strong>, geralmente a apresentação, pois geralmente ficam em JVMs separadas. Quando você tenta retornar um <a href="http://java.sun.com/j2ee/tutorial/1_3-fcs/doc/EJBConcepts4.html" target="_blank">Entity Bean</a>, o que é retornado na verdade é um <a href="http://en.wikipedia.org/wiki/Stub_(distributed_computing)" target="_blank">Stub</a> para acesso ao mesmo. Quando são invocados os Getters deste, é aberto uma conexão de rede para cada invocação. Isso é extremamente custoso, gerando um overhead extremamente desnecessário.</p>
+<p>Bem, mas nosso papo é tradução certo?</p>
+<p><strong>INI-UPDATE:</strong> Consegui o livro em português com um colega e estou adicionado a tradução em português também.</p>
+<p>Vejamos a tradução para o português:</p>
+<blockquote><p><strong>Transfer Object</strong></p>
+<p><strong>Problema</strong><br />
+Você deseja transferir diversos elementos de dados sobre uma <strong>camada</strong>.</p>
+<p><strong>Forças</strong></p>
+<ul>
+<li>Você deseja que os clientes acessem componentes <strong>em outras camadas</strong> para recuperar e atualizar os dados.</li>
+<li>Você deseja reduzir as <strong>solicitações remotas</strong> ao longo da <strong>rede</strong>.</li>
+<li>Você deseja evitar a <strong>degradação do desempenho da rede</strong> causada pelas aplicações muito ruidosas que têm <strong>alto tráfego de rede</strong>.</li>
+</ul>
+<p><strong>Solução</strong><br />
+Use um Transfer Object para enviar vários elementos de dados por uma <strong>camada</strong>.</p></blockquote>
+<p>O leitor atento perceberia que o segundo e terceiro item da seção <strong>Forças</strong> fala de <strong>tráfego de rede</strong> e <strong>degradação do desempenho</strong> da mesma.</p>
+<p><strong>FIM-UPDATE</strong></p>
+<p>Acontece que, o termo <strong>TIER</strong>, foi traduzido erradamente no livro em português para <strong>camada</strong>. O mais correto seria <strong>camada física</strong> ou <strong>nó</strong>. Em Java isso pode ser considerado simplesmente <strong>"em uma outra JVM"</strong>. Essa tradução gera confusão a todo momento. Se você conversar com 10 desenvolvedores, vai perceber que a maioria acredita que <a href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/TransferObject.html" target="_blank">TO</a>/<a href="http://martinfowler.com/eaaCatalog/dataTransferObject.html" target="_blank">DTO</a> pode/deve ser usado entre <strong>LAYERS </strong>(i.e. camadas lógicas, usadas apenas para organização do software). Eis um grave problema de tradução, pois uma grande parte não sabe a diferença entre <strong>LAYER</strong> e <strong>TIER</strong>, e o uso do Pattern dessa forma se mostrou uma solução sem sentido, <a href="http://www.guj.com.br/posts/list/89427.java#478564" target="_blank">conforme diversas discussões no próprio GUJ</a>.</p>
+<p>Outro grave problema recorrente é a tradução dos livros de Patterns. Pegue por exemplo o <a href="http://www.amazon.com/Enterprise-Application-Architecture-Addison-Wesley-Signature/dp/0321127420/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1214423212&amp;sr=8-1" target="_blank">PEAA</a> traduzido e veja o Pattern <a href="http://martinfowler.com/eaaCatalog/activeRecord.html" target="_blank">Active Record</a>. O nome do Pattern foi traduzido para <strong>Registro Ativo</strong>. Parece piada, considerando que um dos maiores valores de um Pattern é a criação de um vocabulário comum.</p>
+<p>Em fim, existem diversos outros exemplos ruins, e só quem perde com isso é o leitor.</p>
+<p>Mas nem tudo está perdido. Existem sim traduções bem aceitáveis, porém em quantidade extremamente reduzida e demoram a sair. Você está disposto a esperar? Não acha melhor comprar o livro em inglês mesmo?</p>
+<p>Mas se eu não domino o inglês? :(</p>
+<p>Sinto informar, mas você vai ficar refém de boas traduções, isso quando tiver tradução. Sem contar os <a href="http://pt.wikipedia.org/wiki/Podcasting" target="_blank">podcasts</a>, como por exemplo os videos disponibilizados no <a href="http://www.infoq.com/" target="_blank">InfoQ</a>. Na verdade, muita coisa não tem tradução e nem vai ter, isso é fato.</p>
+<p>Esse cenário serve pra reforçar a idéia de que o inglês na área de TI é fundamental para o profissional se manter atualizado, visto que existem livros que não são traduzidos, e os que são, ou a tradução é horrível, ou demora muito para ser traduzido após o lançamento da versão original.</p>
+<p>Mesmo que o cenário mude, ainda assim tem muita coisa que você estará perdendo. Quem sabe um emprego no exterior?</p>

@@ -1,0 +1,82 @@
+---
+layout: post
+title: Gerencie seu ambiente Ruby com RVM
+date: 2010-07-16 00:52:05.000000000 -03:00
+categories:
+- agile
+- java
+- jruby
+- pragmatic
+- ruby
+tags:
+- ferramentas
+- jruby
+- ruby
+- rvm
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '118526154'
+author:
+  login: emerleite
+  email: emerleite@gmail.com
+  display_name: Emerson Macedo
+  first_name: Emerson
+  last_name: Macedo
+---
+<h3><strong>Introdução</strong></h3>
+<p>Ruby 1.8, Ruby 1.9, Rails 2, Rails 3, cada projeto usando diversas gems. Como isolar esses ambientes para evitar conflitos?</p>
+<p>Em Outubro de 2007, surgiu uma ferramenta chamada <a href="http://rvm.beginrescueend.com/">RVM</a>, com o objetivo de criar ambientes isolados para desenvolver software em Ruby, permitindo que programadores pudessem usar várias versões de Ruby e Gems numa mesma máquina de forma limpa e sem conflitos. O projeto vem se tornando mais popular este ano, e de fato tem se mostrado muito útil. A lista dos autores pode ser conferida <a href="http://beginrescueend.com/authors" target="_blank">aqui</a>.</p>
+<h3><strong>Instalação</strong></h3>
+<p>Para instalar o RVM, não é preciso muita coisa além de um ambiente POSIX (linux, bsd, etc). Eu instalei no meu Mac sem problemas. Eu acho que a única coisa que não vem por padrão que você precisa instalar é o <a href="http://git-scm.com/" target="_blank">git</a>, que é usado para instalar/atualizar o RVM e instalar/atualizar as versões de Ruby.</p>
+<p>Dito isso, abra o terminal e execute o seguinte comando:</p>
+<p><strong>$ bash &lt; &lt;( curl http://rvm.beginrescueend.com/releases/rvm-install-head )</strong></p>
+<p>O procedimento não deve demorar mais que alguns minutos, dependendo da sua conexão. Em seguida, abra seu profile (.bash_profile, .profile, .bashrc, etc) e adicione as seguintes linhas:</p>
+<p><strong>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"<br />
+PS1="\$(~/.rvm/bin/rvm-prompt) $PS1"<br />
+</strong><br />
+A segunda linha é para que a versão do Ruby que você estiver usando apareça no prompt, caso contrário você vai precisar ficar verificando a todo momento qual versão você está usando e isso pode ser bem chato.</p>
+<p>Em seguida, carregue o rvm (da próxima vez que abrir o shell isso não será mais necessário):</p>
+<p><strong>$ source ~/.rvm/scripts/rvm</strong></p>
+<p>Pronto, o RVM está instalado e é hora de começar a arrumar nosso ambiente.</p>
+<h3><strong>Instalando versões de Ruby</strong></h3>
+<p>A partir do RVM, é possível instalar qualquer implementação Ruby. Por exemplo, podemos instalar o Ruby, Ruby Enterprise e o Jruby. Para uma lista completa acesse <a href="http://rvm.beginrescueend.com/interpreters/" target="_blank">aqui</a>.</p>
+<p>Nesse tutorial, vamos instalar o ruby 1.8.7 . Execute o comando abaixo no terminal:</p>
+<p><strong>$ rvm install 1.8.7</strong></p>
+<p>1.8.7 é um atalho para o último patchlevel da verão 1.8.7 do Ruby. Em geral, isso funciona para todas as versões. A instalação demora um pouquinho, mas nada absurdo, portanto vá tomar um café e volte. Após o termino, "entre" no ambiente do Ruby instalado.</p>
+<p><strong>$ rvm --default 1.8.7</strong></p>
+<p>Nesse momento, você entrou no Ruby 1.8.7 e definiu essa VM como default no RVM.</p>
+<p>Para voltar ao Ruby do systema (fora da RVM), basta ir no shell e digital:</p>
+<p><strong>$ rvm use system</strong></p>
+<p>Para listar as VMs instaladas (ou Rubies como preferem os criadores e como chamaremos a partir de agora), basta digitar:</p>
+<p><strong>$ rvm list</strong></p>
+<p>Escolha a Rubie e use-a conforme o exemplo abaixo:</p>
+<p><strong>$ rvm use 1.8.7</strong></p>
+<h3><strong>Instalando as Gems</strong></h3>
+<p>Uma das manias que a maioria dos Rubistas tem é instalar as gems usando sudo. Isso hoje em dia é considerado má prática. Ainda mais com RVM, já que a intenção é criar uma espécie de SANDBOX por usuário/aplicação, conforme veremos a seguir.</p>
+<p>Primeiramente vamos ver as gems que estão instaladas na nova Rubie. O comando é o já conhecido gem list. Ao rodar esse comando na Rubie instalada pelo RVM, você pode ter a impressão que suas gems sumiram, mas na verdade isso é exatamente o esperado, pois cada Rubie tem seu ambiente totalmente isolado. Para ter uma idéia, rode o seguinte comando e veja o output:</p>
+<p><strong>$ rvm info</strong></p>
+<p>O output fornece toda a informação sobre o ambiente dessa Rubie que está sendo usada no momento. Observe bem a linha home: \n gem:. Nela você verá onde estão sendo instaladas as gems. Repare que ele cria uma estrutura de diretórios sugestiva para você manter suas gems bem isoladas. A estrutura é a seguinte:</p>
+<p><strong>~/.rvm/gems/{Rubie@Gemset}/</strong></p>
+<p>Todas as gems serão instaladas nesse diretório. Não estranhe o <strong>@Gemset</strong>, falaremos dele adiante.</p>
+<p>Vamos então instalar o Rails nessa Rubie. Não use sudo pelo amor de Deus :)</p>
+<p><strong>$ gem install rails --no-ri --no-rdoc</strong></p>
+<p>Depois execute um gem list para ver seu ambiente instalado. Se quiser, execute rvm system e veja que suas gems no ruby do sistema provavelmente são totalmente diferentes.</p>
+<h3><strong>Gemsets</strong></h3>
+<p>Vamos falar agora do tal @Gemset que eu coloquei na estrutura. Gemsets é uma forma de criar uma SANDBOX mais "profunda". Em um primeiro momento pode parecer desnecessário, mas se você pensar que pode ter mais de um projeto por Rubie e não quer que as gems deles se misturem nem gerem algum tipo de conflito, essa estrutura passa a fazer todo sentido.</p>
+<p>Supunha que você tenha um projeto chamado blog. Para criar uma gemset (e entrar nele) para esse projeto basta executar o seguinte comando:</p>
+<p><strong>$ rvm gemset create blog &amp;&amp; rvm gemset use blog</strong></p>
+<p>Feito isso você verá que no seu prompt (se você fez essa configuração de instalação) estará aparecendo da seguinte forma: <strong>rubie@gemset</strong>. Rode o comando gemlist e verá que novamente suas gems que foram instaladas na Rubie sumiram. Mais uma vez isso é esperado, pois acabamos de criar uma nova SANDBOX para esse projeto específico. Nesse momento, basta instalar suas gems nessa gemset que seu projeto terá um ambiente totalmente isolado.</p>
+<p>Se você executar o rvm info, verá que a home das suas gems está com um path diferente do anterior, pois o rvm criou um diretório para a Ruby com a nova Gemset, deixando tudo muito bem organizado.</p>
+<p>Existem algumas gems que todos os projetos podem precisar, como Rake e Capistrano. Não seria uma boa idéia instalar essas gems em cada gemset. O RVM nos dá uma ajuda nesse sentido, criando uma gemset global, permitindo compartilhar gems entre todas as gemsets de uma Rubie. Para instalar uma gem nessa gemset basta mudar para ela e installar, como já vimos anteriormente. Vamos a um exemplo:</p>
+<p><strong>$ rvm gemset use global<br />
+$ gem install capistrano capistrano-ext --no-ri --no-rdoc</strong></p>
+<p><span style="color: #000000;">Pronto, essas gems não precisam mais ser instaladas para cada projeto novo que você for rodar nessa Rubie.</span></p>
+<h3><strong>Conclusão</strong></h3>
+<p>O Ruby Version Manager é uma ferramenta muito interessante para gerênciar seu ambiente Ruby. Ter vários Rubies instalado se torna cada vez mais comum, pois os projetos antigos precisam ser mantidos e novos projetos surgem, usando Rubies mais novos. O uso dos gemsets para isolar as gems também faz toda a diferença, evitando diversas dores de cabeça e deixando o ambiente organizado e limpo. Vale a pena experimentar.</p>
+<h3><strong>&lt;&lt; UPDATE &gt;&gt;<strong> </strong></strong></h3>
+<p><strong><strong><span style="font-weight: normal;">Tem um comando importante que não abordei que é o </span>rvm list known<span style="font-weight: normal;"> que mostra as opções de Rubies disponíveis para instalação. Créditos ao <a href="http://twitter.com/rodvlopes" target="_blank">Rodrigo Lopes</a>.</span></strong></strong></p>
+<p><strong><strong> </strong></strong></p>
