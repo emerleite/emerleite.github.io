@@ -2,7 +2,7 @@
 title: Emerson Macedo
 email: emerleite@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  These are my thoughts on software development
+  Emerson Macedo - These are my thoughts on software development
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://emerson.ninja" # the base hostname & protocol for your site
 twitter_username: emerleite
