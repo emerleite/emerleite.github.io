@@ -32,6 +32,8 @@ author:
   display_name: Emerson Macedo
   first_name: Emerson
   last_name: Macedo
+redirect_from:
+  - /2009/04/15/jbehave-brasil-bdd-em-java-no-nosso-idioma/
 ---
 <p>No mês passado, resolvi aplicar <a href="http://en.wikipedia.org/wiki/Behavior_Driven_Development" target="_blank">BDD</a> em um projeto Java que estava desenvolvendo. Atualmente, existem <a href="http://wiki.github.com/aslakhellesoy/cucumber/jruby-and-java" target="_blank">ferramentas</a> em <a href="http://jtestr.codehaus.org/" target="_blank">outras linguagens</a> que podem ser usadas para esse fim. Por uma série de razões, resolvi usar o <a href="http://jbehave.org/" target="_blank">JBehave</a> para resolver o meu problema nesse projeto em específico (lembre-se, não existe bala de prata). Acontece que o JBehave é todo em Inglês e não dá suporte a i18n.</p>
 <p>Quando comecei a usa-lo no meu projeto, logo percebi que usar em inglês não seria legal, pois o projeto só fazia sentido no Brasil e portanto o interessante era escrever os cenários em português. A partir desse momento, comecei a escrever algumas classes pra fornecer esse suporte. Felizmente, as classes <a href="http://jbehave.org/javadoc/latest/core/org/jbehave/scenario/Scenario.html">Scenario</a> e <a href="http://jbehave.org/javadoc/latest/core/org/jbehave/scenario/steps/Steps.html" target="_blank">Steps</a> permitem fácil extensão para resolver esse problema. Após as modificações necessárias, o arquivo de cenário passou a se chamar <strong>nome.cenario</strong> e o texto no arquivo ficou da seguinte forma:</p>
