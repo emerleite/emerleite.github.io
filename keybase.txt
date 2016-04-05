@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/emerleite
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://emerleite.com
+  * I am emerleite (https://keybase.io/emerleite) on keybase.
+  * I have a public key ASBmul_42V3E0ay9rOO_SqRXBUoafhGG1F-MZS7meN1rKAo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101331191126d5e348ec362001ad31fcc4272400d6ad651dde5f508ec1528ae31be0a",
+            "host": "keybase.io",
+            "kid": "012066ba5ff8d95dc4d1acbdace3bf4aa457054a1a7e1186d45f8c652ee678dd6b280a",
+            "uid": "0f8ddf05ee8b9587d5dad5d94ce1d200",
+            "username": "emerleite"
+        },
+        "service": {
+            "hostname": "emerleite.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.14"
+    },
+    "ctime": 1459892090,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1459892054,
+        "hash": "6265ed22ade8aae0f114baa9b76f4c6c4d91577dbdb21c69e889e464c2294de06a1087023399a6b9aa8b55cad0619f6cf07802dd7b733676deb5166c093c9b56",
+        "seqno": 429979
+    },
+    "prev": "ef8d40c98659c6a9edb06d040c033f232de671cf9f9fbf9614ee6d1b50e0ce6c",
+    "seqno": 10,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+g6Rib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgZrpf+NldxNGsvazjv0qkVwVKGn4RhtRfjGUu5njdaygKp3BheWxvYWTFAvd7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxMzMxMTkxMTI2ZDVlMzQ4ZWMzNjIwMDFhZDMxZmNjNDI3MjQwMGQ2YWQ2NTFkZGU1ZjUwOGVjMTUyOGFlMzFiZTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNjZiYTVmZjhkOTVkYzRkMWFjYmRhY2UzYmY0YWE0NTcwNTRhMWE3ZTExODZkNDVmOGM2NTJlZTY3OGRkNmIyODBhIiwidWlkIjoiMGY4ZGRmMDVlZThiOTU4N2Q1ZGFkNWQ5NGNlMWQyMDAiLCJ1c2VybmFtZSI6ImVtZXJsZWl0ZSJ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoiZW1lcmxlaXRlLmNvbSIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjE0In0sImN0aW1lIjoxNDU5ODkyMDkwLCJleHBpcmVfaW4iOjUwNDU3NjAwMCwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE0NTk4OTIwNTQsImhhc2giOiI2MjY1ZWQyMmFkZThhYWUwZjExNGJhYTliNzZmNGM2YzRkOTE1NzdkYmRiMjFjNjllODg5ZTQ2NGMyMjk0ZGUwNmExMDg3MDIzMzk5YTZiOWFhOGI1NWNhZDA2MTlmNmNmMDc4MDJkZDdiNzMzNjc2ZGViNTE2NmMwOTNjOWI1NiIsInNlcW5vIjo0Mjk5Nzl9LCJwcmV2IjoiZWY4ZDQwYzk4NjU5YzZhOWVkYjA2ZDA0MGMwMzNmMjMyZGU2NzFjZjlmOWZiZjk2MTRlZTZkMWI1MGUwY2U2YyIsInNlcW5vIjoxMCwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEBH7efHdFvkangtG84eqzXKj5S2FeasBKsFfTfpkqrwkfQ4XP2edV/Qvu3RII330oJ1lgXdp+yz2bgentmmxi4KqHNpZ190eXBlIKN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/emerleite
+
+==================================================================
