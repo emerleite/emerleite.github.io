@@ -6,45 +6,47 @@ I hereby claim:
 
   * I am an admin of https://emerleite.com
   * I am emerleite (https://keybase.io/emerleite) on keybase.
-  * I have a public key ASBmul_42V3E0ay9rOO_SqRXBUoafhGG1F-MZS7meN1rKAo
+  * I have a public key ASAfC-Wa8ERHPTxi4zgZ8qBX8WbIKXCgruG724uu1-9P4Ao
 
 To do so, I am signing this object:
 
 {
-    "body": {
-        "key": {
-            "eldest_kid": "0101331191126d5e348ec362001ad31fcc4272400d6ad651dde5f508ec1528ae31be0a",
-            "host": "keybase.io",
-            "kid": "012066ba5ff8d95dc4d1acbdace3bf4aa457054a1a7e1186d45f8c652ee678dd6b280a",
-            "uid": "0f8ddf05ee8b9587d5dad5d94ce1d200",
-            "username": "emerleite"
-        },
-        "service": {
-            "hostname": "emerleite.com",
-            "protocol": "https:"
-        },
-        "type": "web_service_binding",
-        "version": 1
+  "body": {
+    "key": {
+      "eldest_kid": "0120c1ebe56844445c51d12ad21b66ee841012205d9d1ea7e6874800bcc47c6cee160a",
+      "host": "keybase.io",
+      "kid": "01201f0be59af044473d3c62e33819f2a057f166c82970a0aee1bbdb8baed7ef4fe00a",
+      "uid": "0f8ddf05ee8b9587d5dad5d94ce1d200",
+      "username": "emerleite"
     },
-    "client": {
-        "name": "keybase.io go client",
-        "version": "1.0.14"
-    },
-    "ctime": 1459893173,
-    "expire_in": 504576000,
     "merkle_root": {
-        "ctime": 1459893125,
-        "hash": "646ae159ae17ff615c70d2657fe759152dab377f1a1d49c596fb47f2cd84208837f99c4a37fc6cae8e43eac6f92ad9393a41f4770055ac77981781018b168d7e",
-        "seqno": 430032
+      "ctime": 1625574030,
+      "hash": "c32ceeb861be557ce7b111197c9e51aaaea987c9e9de8a6a0d267588e1e936a175eb85c874f43077f64700480bb8f0a835647927bb6a1267125e1e90c013db05",
+      "hash_meta": "6674b06d8fcece1afb7595da06152a0180da52f22f76070cb4a5ff724105e87c",
+      "seqno": 20321379
     },
-    "prev": "2f1f0e5577ea85bd1adb5858c5dfe8fa0474fe1a5d1c72fb2d98f8932001b164",
-    "seqno": 12,
-    "tag": "signature"
+    "service": {
+      "entropy": "0gYgrXtCr9xYgb0qUdYRZgVM",
+      "hostname": "emerleite.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.7.0"
+  },
+  "ctime": 1625574040,
+  "expire_in": 504576000,
+  "prev": "451c71443a7bf88b82976b0297a8ed32adde51ab9bd91e1ba6dd23aafd68de47",
+  "seqno": 50,
+  "tag": "signature"
 }
 
 which yields the signature:
 
-g6Rib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgZrpf+NldxNGsvazjv0qkVwVKGn4RhtRfjGUu5njdaygKp3BheWxvYWTFAvd7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxMzMxMTkxMTI2ZDVlMzQ4ZWMzNjIwMDFhZDMxZmNjNDI3MjQwMGQ2YWQ2NTFkZGU1ZjUwOGVjMTUyOGFlMzFiZTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNjZiYTVmZjhkOTVkYzRkMWFjYmRhY2UzYmY0YWE0NTcwNTRhMWE3ZTExODZkNDVmOGM2NTJlZTY3OGRkNmIyODBhIiwidWlkIjoiMGY4ZGRmMDVlZThiOTU4N2Q1ZGFkNWQ5NGNlMWQyMDAiLCJ1c2VybmFtZSI6ImVtZXJsZWl0ZSJ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoiZW1lcmxlaXRlLmNvbSIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjE0In0sImN0aW1lIjoxNDU5ODkzMTczLCJleHBpcmVfaW4iOjUwNDU3NjAwMCwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE0NTk4OTMxMjUsImhhc2giOiI2NDZhZTE1OWFlMTdmZjYxNWM3MGQyNjU3ZmU3NTkxNTJkYWIzNzdmMWExZDQ5YzU5NmZiNDdmMmNkODQyMDg4MzdmOTljNGEzN2ZjNmNhZThlNDNlYWM2ZjkyYWQ5MzkzYTQxZjQ3NzAwNTVhYzc3OTgxNzgxMDE4YjE2OGQ3ZSIsInNlcW5vIjo0MzAwMzJ9LCJwcmV2IjoiMmYxZjBlNTU3N2VhODViZDFhZGI1ODU4YzVkZmU4ZmEwNDc0ZmUxYTVkMWM3MmZiMmQ5OGY4OTMyMDAxYjE2NCIsInNlcW5vIjoxMiwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEBLVkCGMHsKCHlkWY5p6v3UQ0rIuSsCD2zBaDzP7jVU1wRPgyxo+/hEfpI11/SKQUM0+zon4iM5uTHLYagGI54FqHNpZ190eXBlIKN0YWfNAgKndmVyc2lvbgE=
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgHwvlmvBERz08YuM4GfKgV/FmyClwoK7hu9uLrtfvT+AKp3BheWxvYWTESpcCMsQgRRxxRDp7+IuCl2sCl6jtMq3eUaub2R4bpt0jqv1o3kfEIAEFMaQgDHsKD5bu/vKHwhLORp0UJjsId0DGB1q27xkbAgHCo3NpZ8RANRyCwjhve7Cp5SAd9QqJkoaiWd1T9xTwOZdnMnIvXWdn5WnINarFaSn8YkIM79wQ1kVyZFY/774ULD58Td+3BahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIHn06MM7/Cu3OO8ppNsmy0cVNhWOQMw5AaDXKYEv9mGuo3RhZ80CAqd2ZXJzaW9uAQ==
 
 And finally, I am proving ownership of this host by posting or
 appending to this document.
